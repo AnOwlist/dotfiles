@@ -39,27 +39,6 @@
         padding-left:8px;
         border: 2px none #33ccff;
       }
-      #workspaces {
-        padding-left: 0px;
-        padding-right: 4px;
-      }
-      #workspaces button {
-        padding-top: 5px;
-        padding-bottom: 5px;
-        padding-left: 6px;
-        padding-right: 6px;
-      }
-      #workspaces button.active {
-        background-color: rgb(181, 232, 224);
-        color: rgb(26, 24, 38);
-      }
-      #workspaces button.urgent {
-        color: rgb(26, 24, 38);
-      }
-      #workspaces button:hover {
-        background-color: rgb(248, 189, 150);
-        color: rgb(26, 24, 38);
-      }
       tooltip {
         background: rgb(48, 45, 65);
       }
@@ -200,8 +179,8 @@
         };
         "pulseaudio" = {
           "scroll-step" = 1;
-          "format" = "{icon} {volume}%";
-          "format-muted" = "󰖁 Muted";
+          "format" = "{icon}   {volume}%";
+          "format-muted" = "󰖁   Muted";
           "format-icons" = {
             "default" = [
               ""
@@ -230,7 +209,7 @@
           ];
         };
         "backlight" = {
-          "format" = "󰖨 {percent}%";
+          "format" = "󰖨  {percent}%";
         };
         "clock" = {
           "interval" = 1;
@@ -238,14 +217,14 @@
         };
         "memory" = {
           "interval" = 1;
-          "format" = "󰻠 {percentage}%";
+          "format" = "󰻠  {percentage}%";
           "states" = {
             "warning" = 85;
           };
         };
         "cpu" = {
           "interval" = 1;
-          "format" = "󰍛 {usage}%";
+          "format" = "󰍛  {usage}%";
         };
         "custom/media" = {
           "max-length" = 100;
