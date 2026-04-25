@@ -5,9 +5,9 @@
   ...
 }:
 let
-  username = "kani";
-  hashedPassword = "$6$xzVNYSD7yHJuO./x$5fCLN3.ENzMJDWkgegYazIgw/NkWYC2jMSiTDqma84wjEhbYRgeDPcHb.nc55WPD3qpACqGakvM4kXHZihgly0";
-  hostname = "ipos";
+  username = "anowlist";
+  hashedPassword = "$6$CA/1ptx4zRUe....$.HTD.apejf/k6OPuCxOafZMehUMcuVMuNeFpR7WdH5prfXnLYX7gNPkZZkLhroPOSc52Njq/55T2.3eRPKL8J0";
+  hostname = "periapsis";
 in
 {
   imports = [
@@ -30,10 +30,6 @@ in
     kernelPackages = pkgs.linuxPackages_latest;
     extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
     initrd.kernelModules = [ "joydev" ];
-    kernelParams = [
-      "i915.force_probe=a7a1"
-      "kvm.enable_virt_at_load=0"
-    ];
     tmp.useTmpfs = true;
     loader = {
       efi.canTouchEfiVariables = true;
@@ -50,29 +46,7 @@ in
   networking = {
     nftables.enable = true;
     firewall = {
-      allowedTCPPorts = [
-        5900 # wayvnc
-      ];
-      allowedTCPPortRanges = [
-        {
-          from = 1714;
-          to = 1764;
-        } # KDE Connect
-        {
-          from = 1420;
-          to = 1423;
-        }
-        {
-          from = 33110;
-          to = 33120;
-        }
-      ];
-      allowedUDPPortRanges = [
-        {
-          from = 1714;
-          to = 1764;
-        } # KDE Connect
-      ];
+      enable = true;
     };
   };
 
@@ -85,27 +59,24 @@ in
     };
     thermald.enable = true;
     logind.settings.Login.HandleLidSwitch = "ignore";
-    fprintd = {
-      enable = true;
-      tod.enable = true;
-      tod.driver = pkgs.libfprint-2-tod1-goodix;
-    };
 
     desktopManager.gnome.enable = true;
   };
 
   hardware.graphics = {
     enable = true;
-    extraPackages = with pkgs; [
-      intel-media-driver
-      vpl-gpu-rt
-
-      intel-compute-runtime
-    ];
   };
 
   programs = {
     niri.enable = true;
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+      localNetworkGameTransfers.openFirewall = true;
+      extraCompatPackages = [
+        pkgs.proton-ge-bin
+      ];
+    };
   };
 
   virtualisation.waydroid.enable = true;

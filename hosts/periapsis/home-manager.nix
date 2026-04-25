@@ -14,10 +14,10 @@ username:
 
   programs.niri.settings = {
     input.keyboard.xkb.layout = "jp";
-    outputs."HDMI-A-1".transform.rotation = 90;
+    outputs."eDP-1".scale = 1;
     binds = {
-      "Mod+U".action.focus-monitor-previous = { };
-      "Mod+I".action.focus-monitor-next = { };
+      "Mod+U".action.focus-workspace-down = { };
+      "Mod+I".action.focus-workspace-up = { };
     };
   };
 
@@ -29,8 +29,8 @@ username:
     stateVersion = "26.05";
 
     packages = with pkgs; [
-      nvtopPackages.nvidia
-      btop-cuda
+      nvtopPackages.intel
+      btop
     ];
 
     sessionVariables = {
