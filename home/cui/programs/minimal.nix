@@ -7,5 +7,6 @@
     ./nh.nix
     ./nix.nix
     ./yazi.nix
+    ./git.nix
   ];
 }
