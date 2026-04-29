@@ -72,8 +72,8 @@
     };
     Timer = {
       Unit = "wallpaper-changer.service";
-      OnBootSec = "10m";
-      OnUnitActiveSec = "10m";
+      OnBootSec = "5m";
+      OnUnitActiveSec = "5m";
     };
     Install.WantedBy = [ "timers.target" ];
   };
