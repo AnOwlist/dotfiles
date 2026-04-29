@@ -17,7 +17,7 @@
       scrollback_pager nvim -c "setlocal autowriteall" -c "silent write! /tmp/kitty_scrollback_buffer | te cat /tmp/kitty_scrollback_buffer - "
 
       background_opacity 0.9
-      background_blur 50
+      background_blur 0
 
       allow_remote_control yes
       dynamic_background_opacity yes
