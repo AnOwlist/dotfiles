@@ -9,23 +9,12 @@
   home = {
     packages = with pkgs; [
       gh
-      cava
-      tdf
       mold-unwrapped
-      jq
       gemini-cli
       codex
       uv
       nodejs
-      fd
       unar
-      evcxr
-      cloudflared
-      ffmpeg
-      python3
-      arrpc
-      imagemagick
-      ghostscript
     ];
 
     sessionVariables = {

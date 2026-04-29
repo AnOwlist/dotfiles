@@ -13,8 +13,6 @@
       bat
       git
       lazygit
-      jujutsu
-      lazyjj
       unzip
       wget
       eza

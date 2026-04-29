@@ -16,26 +16,14 @@
     brightnessctl
     wl-clipboard
     nautilus
-    gimp
     wallpaper_random
     dragon-drop
     slurp
     prismlauncher
-    sptlrx-ex
     discord
-    earbuds
-    blender
     wf-recorder
     wf-recorder-toggle
   ];
-
-  services = {
-    kdeconnect = {
-      enable = true;
-      package = pkgs.kdePackages.kdeconnect-kde;
-      indicator = true;
-    };
-  };
 
   dconf.settings = {
     "org/gnome/desktop/interface" = {
