@@ -1,12 +1,10 @@
 username:
 {
-  inputs,
   pkgs,
   ...
 }:
 {
   imports = [
-    inputs.zen-browser.homeModules.beta
     ../../home/gui/home.nix
     ../../home/cui/home.nix
     ../../home/cui/minimal.nix
