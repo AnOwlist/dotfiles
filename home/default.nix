@@ -36,22 +36,22 @@ in
   home-cli-minimal = mkHome {
     system = "x86_64-linux";
     username = "anowlist";
-    modules = [ ./cui/minimal.nix ];
+    modules = [
+      ./cui/minimal.nix
+    ];
   };
   home-cli-full = mkHome {
     system = "x86_64-linux";
     username = "anowlist";
     modules = [
-      ./cui/minimal.nix
-      ./cui/home.nix
+      ./cui/full.nix
     ];
   };
   home-gui = mkHome {
     system = "x86_64-linux";
     username = "anowlist";
     modules = [
-      ./cui/minimal.nix
-      ./cui/home.nix
+      ./cui/full.nix
       ./gui/home.nix
     ];
   };

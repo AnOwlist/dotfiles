@@ -1,6 +1,8 @@
 { pkgs, ... }:
 {
-  imports = [ ./fonts ];
+  imports = [
+    ./fonts.nix
+  ];
 
   services = {
     blueman.enable = true;

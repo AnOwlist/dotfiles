@@ -1,5 +1,11 @@
 {
   nix.settings = {
+    auto-optimise-store = true;
+    keep-outputs = true;
+    experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
     substituters = [
       "https://cache.nixos.org?priority=10"
       "https://nix-community.cachix.org"

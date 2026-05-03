@@ -42,8 +42,6 @@ username: hashedPassword: hostname:
   };
 
   nix.settings = {
-    auto-optimise-store = true;
-    keep-outputs = true;
     experimental-features = [
       "nix-command"
       "flakes"
@@ -52,11 +50,6 @@ username: hashedPassword: hostname:
       "root"
       "${username}"
     ];
-  };
-
-  nixpkgs.flake = {
-    setNixPath = false;
-    setFlakeRegistry = false;
   };
 
   virtualisation.podman = {

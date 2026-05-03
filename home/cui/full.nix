@@ -1,8 +1,8 @@
 { pkgs, ... }:
 {
-
   imports = [
-    ./programs
+    ./minimal.nix
+    ./programs/full.nix
     ./themes
   ];
 
@@ -16,9 +16,5 @@
       nodejs
       unar
     ];
-
-    sessionVariables = {
-      RUST_SRC_PATH = "${pkgs.rust.packages.stable.rustPlatform.rustLibSrc}";
-    };
   };
 }

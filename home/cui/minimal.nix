@@ -4,7 +4,6 @@
   ...
 }:
 {
-
   imports = [ ./programs/minimal.nix ];
 
   home.packages =
