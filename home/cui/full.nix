@@ -10,11 +10,10 @@
     packages = with pkgs; [
       gh
       mold-unwrapped
-      gemini-cli
-      codex
       uv
       nodejs
       unar
+      cachix
     ];
   };
 }
