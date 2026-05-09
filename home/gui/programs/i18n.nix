@@ -7,7 +7,7 @@
       waylandFrontend = true;
       addons = with pkgs; [
         fcitx5-skk
-        (karukan-im.override { vulkanSupport = true; })
+        karukan-im-gpu
       ];
     };
   };
