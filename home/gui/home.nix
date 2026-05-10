@@ -15,6 +15,7 @@
     brightnessctl
     wl-clipboard
     nautilus
+    ripdrag
     slurp
     prismlauncher
     discord

@@ -23,6 +23,7 @@
         "$" = "";
         lg = "lazygit";
         rusti = "evcxr";
+        drg = "ripdrag";
       };
     };
 
