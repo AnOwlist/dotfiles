@@ -20,7 +20,6 @@
         lla = "eza -la";
         rm = "rm -rf";
         cp = "cp -r";
-        "$" = "";
         lg = "lazygit";
         rusti = "evcxr";
         drg = "ripdrag";
