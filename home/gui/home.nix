@@ -15,7 +15,6 @@
     brightnessctl
     wl-clipboard
     nautilus
-    dragon-drop
     slurp
     prismlauncher
     discord

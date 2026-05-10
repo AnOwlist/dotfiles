@@ -23,7 +23,6 @@
         "$" = "";
         lg = "lazygit";
         rusti = "evcxr";
-        drg = "dragon-drop";
       };
     };
 
