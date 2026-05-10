@@ -24,6 +24,8 @@
         lg = "lazygit";
         rusti = "evcxr";
         drg = "ripdrag";
+        wcp = "wl-copy";
+        wps = "wl-paste";
       };
     };
 
