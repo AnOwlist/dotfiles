@@ -47,10 +47,9 @@
   xdg.portal = {
     enable = true;
     config = {
-      common.default = [ "gtk" ];
+      common.default = [ "gnome" ];
     };
     extraPortals = with pkgs; [
-      xdg-desktop-portal-gtk
       xdg-desktop-portal-gnome
     ];
   };
