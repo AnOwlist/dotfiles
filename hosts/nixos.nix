@@ -24,6 +24,7 @@ username: hashedPassword: hostname:
       "wheel"
       "audio"
       "video"
+      "input"
     ];
     inherit hashedPassword;
   };
@@ -39,7 +40,12 @@ username: hashedPassword: hostname:
       enable = true;
       powerOnBoot = true;
     };
+    uinput.enable = true;
   };
+
+  services.udev.extraRules = ''
+    KERNEL=="uinput", GROUP="input", TAG+="uaccess"
+  '';
 
   nix.settings = {
     experimental-features = [
