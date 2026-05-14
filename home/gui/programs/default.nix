@@ -13,5 +13,6 @@
     ./obs-studio.nix
     ./niri
     ./wallpaper_random.nix
+    ./xremap.nix
   ];
 }

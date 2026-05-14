@@ -56,6 +56,14 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.home-manager.follows = "home-manager";
     };
+    xremap-flake = {
+      url = "github:xremap/nix-flake";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        xremap.follows = "";
+      };
+    };
   };
 
   outputs =
