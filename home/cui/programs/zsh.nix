@@ -23,8 +23,10 @@
         lg = "lazygit";
         rusti = "evcxr";
         drg = "ripdrag";
-        wcp = "wl-copy";
-        wps = "wl-paste";
+      };
+      globalAbbreviations = {
+        wlc = "wl-copy";
+        wlp = "wl-paste";
       };
     };
 
