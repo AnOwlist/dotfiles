@@ -9,6 +9,7 @@
   home = {
     packages = with pkgs; [
       gh
+      tdf
       mold-unwrapped
       uv
       nodejs
