@@ -2,9 +2,7 @@
   programs.kitty = {
     enable = true;
     extraConfig = ''
-      # vim:ft=kitty
-
-      #zshell
+      # zshell
       shell zsh
 
       # Remove close window confirm
