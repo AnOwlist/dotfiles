@@ -10,7 +10,7 @@
 
       background = [
         {
-          path = "~/wallpapers/blender.png";
+          path = "~/wallpapers/nix-wallpaper-nineish-catppuccin-macchiato-alt.png";
         }
       ];
 
