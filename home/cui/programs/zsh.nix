@@ -14,15 +14,19 @@
     zsh-abbr = {
       enable = true;
       abbreviations = {
-        ls = "eza";
-        la = "eza -a";
-        ll = "eza -l";
-        lla = "eza -la";
+        ls = "eza --icons";
+        la = "eza --icons -a";
+        ll = "eza --icons -lh";
+        lla = "eza --icons -lha";
+        lt = "eza --icons --tree --level=2";
+        lta = "eza --icons --tree -a --git-ignore --level=2";
         rm = "rm -rf";
         cp = "cp -r";
+        c = "clear";
         lg = "lazygit";
         rusti = "evcxr";
         drg = "ripdrag";
+        o = "xdg-open";
       };
       globalAbbreviations = {
         wlc = "wl-copy";
