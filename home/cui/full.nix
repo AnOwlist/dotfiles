@@ -8,13 +8,13 @@
 
   home = {
     packages = with pkgs; [
-      gh
-      tdf
-      mold-unwrapped
-      uv
-      nodejs
-      unar
       cachix
+      gh
+      mold-unwrapped
+      nodejs
+      tdf
+      unar
+      uv
     ];
   };
 }

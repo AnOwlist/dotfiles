@@ -6,21 +6,21 @@
   ];
 
   home.packages = with pkgs; [
-    dunst
-    pavucontrol
-    xdg-utils
-    tokyonight-gtk-theme
-    playerctl
-    pamixer
     brightnessctl
-    wl-clipboard
+    discord
+    dunst
     nautilus
+    pamixer
+    pavucontrol
+    playerctl
+    prismlauncher
     ripdrag
     slurp
-    prismlauncher
-    discord
+    tokyonight-gtk-theme
     wf-recorder
     wf-recorder-toggle
+    wl-clipboard
+    xdg-utils
   ];
 
   dconf.settings = {

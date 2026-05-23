@@ -8,16 +8,16 @@
 
   home.packages =
     (with pkgs; [
-      curl
+      any-nix-shell
       bat
+      curl
+      eza
       git
       lazygit
+      ripgrep
       unzip
       wget
-      eza
       zoxide
-      ripgrep
-      any-nix-shell
     ])
     ++ [ inputs.nvf.packages."${pkgs.stdenv.hostPlatform.system}".default ];
 }
