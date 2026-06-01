@@ -19,4 +19,11 @@
       stripRoot = false;
     }
   }/dict.bin";
+
+  home.file.".config/karukan-im/config.toml".text =
+    "
+    [conversion]
+    live_conversion = true
+    fullwidth_symbols = true
+  ";
 }
