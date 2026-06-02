@@ -7,7 +7,6 @@
 
   home.packages = with pkgs; [
     brightnessctl
-    discord
     dunst
     nautilus
     pamixer
