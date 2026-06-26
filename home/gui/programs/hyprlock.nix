@@ -41,7 +41,7 @@
           font_size = 100;
 
           color = "rgba(220, 220, 255, 0.6)";
-          font_family = "JetBrainsMono Nerd Font Bold";
+          font_family = "JetBrainsMono Nerd Font ExtraBold";
 
           valign = "center";
           halign = "center";
@@ -53,7 +53,7 @@
           font_size = 25;
 
           color = "rgba(212, 212, 255, 0.8)";
-          font_family = "JetBrainsMono Nerd Font";
+          font_family = "JetBrainsMono Nerd Font Bold";
 
           valign = "center";
           halign = "center";
@@ -65,7 +65,7 @@
           font_size = 20;
 
           color = "rgba(212, 212, 255, 0.8)";
-          font_family = "JetBrainsMono Nerd Font";
+          font_family = "JetBrainsMono Nerd Font Bold";
 
           valign = "center";
           halign = "center";
