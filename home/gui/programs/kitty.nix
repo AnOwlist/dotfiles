@@ -13,6 +13,7 @@
       confirm_os_window_close 0
 
       font_size 12.0
+      font_family FiraCode Nerd Font
 
       map ctrl+shift+; change_font_size all +2.0
 
