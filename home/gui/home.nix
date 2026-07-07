@@ -32,24 +32,26 @@
     };
   };
 
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications = {
-      "text/html" = "zen-beta.desktop";
-      "x-scheme-handler/http" = "zen-beta.desktop";
-      "x-scheme-handler/https" = "zen-beta.desktop";
-      "x-scheme-handler/about" = "zen-beta.desktop";
-      "x-scheme-handler/unknown" = "zen-beta.desktop";
+  xdg = {
+    mimeApps = {
+      enable = true;
+      defaultApplications = {
+        "text/html" = "zen-beta.desktop";
+        "x-scheme-handler/http" = "zen-beta.desktop";
+        "x-scheme-handler/https" = "zen-beta.desktop";
+        "x-scheme-handler/about" = "zen-beta.desktop";
+        "x-scheme-handler/unknown" = "zen-beta.desktop";
+      };
     };
-  };
 
-  xdg.portal = {
-    enable = true;
-    config = {
-      common.default = [ "gnome" ];
+    portal = {
+      enable = true;
+      config = {
+        common.default = [ "gnome" ];
+      };
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-gnome
+      ];
     };
-    extraPortals = with pkgs; [
-      xdg-desktop-portal-gnome
-    ];
   };
 }

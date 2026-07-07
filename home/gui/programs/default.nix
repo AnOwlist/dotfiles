@@ -1,19 +1,19 @@
 {
   imports = [
     ./dunst.nix
-    ./fuzzel.nix
-    ./waybar.nix
-    ./hyprlock.nix
-    ./wleave.nix
-    ./libskk
-    ./kitty.nix
-    ./zen-browser.nix
     ./flameshot.nix
+    ./fuzzel.nix
+    ./hyprlock.nix
     ./i18n.nix
-    ./obs-studio.nix
+    ./kitty.nix
+    ./libskk
     ./niri
+    ./obs-studio.nix
     ./onlyoffice.nix
     ./wallpaper_random.nix
+    ./waybar.nix
+    ./wleave.nix
     ./xremap.nix
+    ./zen-browser.nix
   ];
 }
