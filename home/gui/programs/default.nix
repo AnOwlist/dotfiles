@@ -12,6 +12,7 @@
     ./i18n.nix
     ./obs-studio.nix
     ./niri
+    ./onlyoffice.nix
     ./wallpaper_random.nix
     ./xremap.nix
   ];
