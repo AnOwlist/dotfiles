@@ -25,6 +25,8 @@
       allow_remote_control yes
       dynamic_background_opacity yes
 
+      enable_audio_bell no
+
       # The basic colors
       foreground              #CDD6F4
       background              #282A36
