@@ -15,10 +15,6 @@ username:
     niri.settings = {
       input.keyboard.xkb.layout = "jp";
       outputs."eDP-1".scale = 1;
-      binds = {
-        "Mod+U".action.focus-workspace-down = { };
-        "Mod+I".action.focus-workspace-up = { };
-      };
     };
 
     git.settings.user = {
