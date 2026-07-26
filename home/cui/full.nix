@@ -10,6 +10,7 @@
     packages = with pkgs; [
       cachix
       gh
+      jq
       mold-unwrapped
       nodejs
       tdf
