@@ -15,7 +15,6 @@
     prismlauncher
     ripdrag
     slurp
-    tokyonight-gtk-theme
     wf-recorder
     wf-recorder-toggle
     wl-clipboard
@@ -25,10 +24,6 @@
   dconf.settings = {
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
-    };
-
-    "org/gnome/shell/extensions/user-theme" = {
-      name = "Tokyonight-Dark";
     };
   };
 
