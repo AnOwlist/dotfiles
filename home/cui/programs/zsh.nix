@@ -1,4 +1,14 @@
 { pkgs, ... }:
+
+let
+  promptColors = {
+    success = "122";
+    failure = "204";
+    directory = "105";
+    metadata = "8";
+    duration = "143";
+  };
+in
 {
   programs.zsh = {
     enable = true;
@@ -36,15 +46,42 @@
 
     autosuggestion.enable = true;
     enableCompletion = true;
-    syntaxHighlighting.enable = true;
+    syntaxHighlighting = {
+      enable = true;
+      styles = {
+        command = "fg=${promptColors.success}";
+        builtin = "fg=${promptColors.success}";
+        function = "fg=${promptColors.success}";
+        alias = "fg=${promptColors.success}";
+        hashed-command = "fg=${promptColors.success}";
+        precommand = "fg=${promptColors.success}";
+        unknown-token = "fg=${promptColors.failure}";
+      };
+    };
 
     initContent = ''
       eval "$(zoxide init zsh)"
 
       bindkey '^ ' forward-word
 
-      # for refined theme
-      any-nix-shell zsh --info-right | sed 's/precmd () {/& \nsetopt localoptions nopromptsubst\nvcs_info\nprint -P "\\n$(repo_information) %F{yellow}$(cmd_exec_time)%f"\nunset cmd_timestamp/' | source /dev/stdin
+      # Keep refined's prompt information alongside any-nix-shell's precmd.
+      PROMPT="%(?.%F{${promptColors.success}}.%F{${promptColors.failure}})❯%f "
+      repo_information() {
+        echo "%F{${promptColors.directory}}''${vcs_info_msg_0_%%/.} %F{${promptColors.metadata}}$vcs_info_msg_1_`git_dirty` $vcs_info_msg_2_%f"
+      }
+      refined_precmd() {
+        setopt localoptions nopromptsubst
+        vcs_info
+        print -P "\\n$(repo_information) %F{${promptColors.duration}}$(cmd_exec_time)%f"
+        unset cmd_timestamp
+      }
+      any-nix-shell zsh --info-right | sed 's/precmd () {/&\n  refined_precmd/' | source /dev/stdin
+      functions[_any_nix_shell_precmd]=$functions[precmd]
+      precmd() {
+        _any_nix_shell_precmd
+        local promptColor="%F{${promptColors.success}}"
+        RPROMPT="''${RPROMPT//$'\e[1;32m'/$promptColor}"
+      }
 
       source ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
 
