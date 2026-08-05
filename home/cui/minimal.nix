@@ -14,6 +14,7 @@
       eza
       git
       lazygit
+      libqalculate
       ripgrep
       unzip
       wget

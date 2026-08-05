@@ -7,5 +7,6 @@
     ./nix.nix
     ./yazi.nix
     ./git.nix
+    ./qalculate.nix
   ];
 }
