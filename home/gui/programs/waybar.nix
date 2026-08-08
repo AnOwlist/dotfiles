@@ -51,7 +51,7 @@
         padding-right: 6px;
         color: #7ebae4;
       }
-      #mode, #clock, #memory, #temperature,#cpu,#custom-media, #custom-wall, #temperature, #backlight, #pulseaudio, #network, #battery, #custom-powermenu, #custom-cava-internal {
+      #mode, #clock, #custom-clock, #memory, #temperature,#cpu,#custom-media, #custom-wall, #temperature, #backlight, #pulseaudio, #network, #battery, #custom-powermenu, #custom-cava-internal {
         padding-left: 10px;
         padding-right: 10px;
       }
@@ -70,7 +70,7 @@
       #cpu {
         color: rgb(245, 194, 231);
       }
-      #clock {
+      #clock, #custom-clock {
         color: rgb(217, 224, 238);
       }
       #custom-wall {
@@ -137,7 +137,7 @@
           "cava"
           "custom/sptlrx-ex"
         ];
-        modules-center = [ "clock" ];
+        modules-center = [ "custom/clock" ];
         modules-right = [
           "pulseaudio"
           "battery"
@@ -211,9 +211,10 @@
         "backlight" = {
           "format" = "󰖨 {percent}%";
         };
-        "clock" = {
+        "custom/clock" = {
+          "exec" = "date '+%H:%M  %a %b %-d'";
           "interval" = 1;
-          "format" = "{:%H:%M %p  %A %b %d}";
+          "tooltip" = false;
         };
         "memory" = {
           "interval" = 1;
