@@ -51,11 +51,6 @@
         xwayland-satellite-unstable.follows = "";
       };
     };
-    nix-on-droid = {
-      url = "github:yadokani389/nix-on-droid/pr503-cleanup";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
     xremap-flake = {
       url = "github:xremap/nix-flake";
       inputs = {
@@ -73,7 +68,7 @@
     }:
     flake-parts.lib.mkFlake { inherit inputs; } {
       flake = {
-        inherit (import ./hosts inputs) nixosConfigurations nixOnDroidConfigurations;
+        inherit (import ./hosts inputs) nixosConfigurations;
         homeConfigurations = import ./home inputs;
       };
 
