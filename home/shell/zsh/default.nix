@@ -1,12 +1,13 @@
-{ pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 
 let
   promptColors = {
     success = "122";
     failure = "204";
-    directory = "105";
-    metadata = "8";
-    duration = "143";
   };
 in
 {
@@ -28,10 +29,10 @@ in
       enable = true;
       oh-my-zsh = {
         enable = true;
-        theme = "refined";
+        custom = "${config.xdg.configHome}/oh-my-zsh";
+        theme = "refined-anowlist";
         plugins = [
           "git"
-          "ssh-agent"
         ];
       };
 
@@ -68,41 +69,9 @@ in
       initContent = ''
         bindkey '^ ' forward-word
 
-        # Keep refined's prompt information alongside any-nix-shell's precmd.
-        PROMPT="%(?.%F{${promptColors.success}}.%F{${promptColors.failure}})❯%f "
-        repo_information() {
-          echo "%F{${promptColors.directory}}''${vcs_info_msg_0_%%/.} %F{${promptColors.metadata}}$vcs_info_msg_1_`git_dirty` $vcs_info_msg_2_%f"
-        }
-        cmd_exec_time() {
-          local stop=$(date +%s)
-          local start=''${cmd_timestamp:-$stop}
-          local elapsed=$((stop - start))
-          (( elapsed > 5 )) || return
+        ${pkgs.any-nix-shell}/bin/any-nix-shell zsh | source /dev/stdin
 
-          local hours=$((elapsed / 3600))
-          local minutes=$(((elapsed % 3600) / 60))
-          local seconds=$((elapsed % 60))
-          local duration=""
-
-          (( hours > 0 )) && duration+="''${hours}h "
-          (( minutes > 0 )) && duration+="''${minutes}m "
-          (( seconds > 0 || elapsed < 60 )) && duration+="''${seconds}s"
-          echo "''${duration% }"
-        }
-        refined_precmd() {
-          setopt localoptions nopromptsubst
-          vcs_info
-          print -P "\\n$(repo_information) %F{${promptColors.duration}}$(cmd_exec_time)%f"
-          unset cmd_timestamp
-        }
-        any-nix-shell zsh --info-right | sed 's/precmd () {/&\n  refined_precmd/' | source /dev/stdin
-        functions[_any_nix_shell_precmd]=$functions[precmd]
-        precmd() {
-          _any_nix_shell_precmd
-          local promptColor="%F{${promptColors.success}}"
-          RPROMPT="''${RPROMPT//$'\e[1;32m'/$promptColor}"
-        }
-
+        # zoxide itself is initialized by Home Manager; this is only a custom ZLE widget.
         zoxide_zi_insert() {
           local dir
           dir="$(zoxide query -i)" || return
@@ -115,4 +84,6 @@ in
       '';
     };
   };
+
+  xdg.configFile."oh-my-zsh/themes/refined-anowlist.zsh-theme".source = ./refined-anowlist.zsh-theme;
 }
