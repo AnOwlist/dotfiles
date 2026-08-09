@@ -114,6 +114,11 @@
           };
 
           treefmt = {
+            projectRoot = builtins.path {
+              path = ./.;
+              name = "dotfiles-source";
+              filter = path: type: type != "directory" || builtins.baseNameOf path != ".git";
+            };
             projectRootFile = "flake.nix";
             programs = {
               nixfmt.enable = true;
