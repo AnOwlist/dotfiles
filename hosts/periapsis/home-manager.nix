@@ -5,8 +5,7 @@ username:
 }:
 {
   imports = [
-    ../../home/gui/home.nix
-    ../../home/cui/full.nix
+    ../../home/profiles/workstation.nix
   ];
 
   programs = {

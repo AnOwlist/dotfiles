@@ -1,31 +1,41 @@
 { pkgs, ... }:
 {
   imports = [
-    ./programs
-    ./themes
+    ./dunst.nix
+    ./flameshot.nix
+    ./fuzzel.nix
+    ./hyprlock.nix
+    ./i18n.nix
+    ./kitty.nix
+    ./libskk
+    ./niri
+    ./obs-studio.nix
+    ./onlyoffice.nix
+    ./theme.nix
+    ./wallpaper_random.nix
+    ./waybar.nix
+    ./wleave.nix
+    ./xremap.nix
+    ./zen-browser.nix
   ];
 
   home.packages = with pkgs; [
     brightnessctl
-    dunst
+    coreutils
     nautilus
     pamixer
     pavucontrol
     playerctl
     prismlauncher
-    ripdrag
+    procps
     slurp
+    systemd
     wf-recorder
     wf-recorder-toggle
-    wl-clipboard
-    xdg-utils
+    wireplumber
   ];
 
-  dconf.settings = {
-    "org/gnome/desktop/interface" = {
-      color-scheme = "prefer-dark";
-    };
-  };
+  dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
   xdg = {
     mimeApps = {
@@ -41,12 +51,8 @@
 
     portal = {
       enable = true;
-      config = {
-        common.default = [ "gnome" ];
-      };
-      extraPortals = with pkgs; [
-        xdg-desktop-portal-gnome
-      ];
+      config.common.default = [ "gnome" ];
+      extraPortals = [ pkgs.xdg-desktop-portal-gnome ];
     };
   };
 }

@@ -79,9 +79,6 @@
       #custom-media {
         color: #fffaf0;
       }
-      #custom-sptlrx-ex {
-        color: #fffaf0;
-      }
       #temperature {
         color: rgb(150, 205, 251);
       }
@@ -135,7 +132,6 @@
           "temperature"
           "custom/media"
           "cava"
-          "custom/sptlrx-ex"
         ];
         modules-center = [ "custom/clock" ];
         modules-right = [
@@ -172,10 +168,6 @@
             "▇"
             "█"
           ];
-        };
-        "custom/sptlrx-ex" = {
-          "max-length" = 100;
-          "exec" = "sptlrx-ex --mode pipe";
         };
         "pulseaudio" = {
           "scroll-step" = 1;

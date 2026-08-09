@@ -70,7 +70,6 @@
     flake-parts.lib.mkFlake { inherit inputs; } {
       flake = {
         inherit (import ./hosts inputs) nixosConfigurations;
-        homeConfigurations = import ./home inputs;
       };
 
       systems = [
@@ -107,9 +106,6 @@
         {
           checks = pkgs.lib.optionalAttrs (system == "x86_64-linux") {
             nixos-periapsis = evaluationCheck "nixos-periapsis-evaluation" self.nixosConfigurations.periapsis.config.system.build.toplevel;
-            home-cli-minimal = evaluationCheck "home-cli-minimal-evaluation" self.homeConfigurations.home-cli-minimal.activationPackage;
-            home-cli-full = evaluationCheck "home-cli-full-evaluation" self.homeConfigurations.home-cli-full.activationPackage;
-            home-gui = evaluationCheck "home-gui-evaluation" self.homeConfigurations.home-gui.activationPackage;
           };
 
           devShells.default = pkgs.mkShell {

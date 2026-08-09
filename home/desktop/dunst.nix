@@ -1,4 +1,9 @@
-{ pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 {
   services.dunst = {
     enable = true;
@@ -52,7 +57,7 @@
         show_indicators = "yes";
         shrink = "no";
         word_wrap = "yes";
-        browser = "/usr/bin/env zen-beta -new-tab";
+        browser = "${lib.getExe config.programs.zen-browser.package} -new-tab";
       };
 
       fullscreen_delay_everything = {

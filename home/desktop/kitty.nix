@@ -1,10 +1,9 @@
+{ lib, ... }:
 {
   programs.kitty = {
     enable = true;
+    shellIntegration.enableZshIntegration = lib.mkDefault false;
     extraConfig = ''
-      # zshell
-      shell zsh
-
       auto_reload_config -1
 
       clipboard_control write-clipboard read-clipboard write-primary read-primary
@@ -16,8 +15,6 @@
       font_family FiraCode Nerd Font
 
       map ctrl+shift+; change_font_size all +2.0
-
-      scrollback_pager nvim -c "setlocal autowriteall" -c "silent write! /tmp/kitty_scrollback_buffer | te cat /tmp/kitty_scrollback_buffer - "
 
       background_opacity 0.9
       background_blur 0

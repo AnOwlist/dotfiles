@@ -1,4 +1,7 @@
+{ pkgs, ... }:
 {
+  home.packages = [ pkgs.libqalculate ];
+
   home.file.".config/qalculate/qalc.cfg" = {
     force = true;
     text = ''

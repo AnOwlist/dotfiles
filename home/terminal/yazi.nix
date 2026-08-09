@@ -1,14 +1,13 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 {
   programs.yazi = {
     enable = true;
-    enableZshIntegration = true;
-    shellWrapperName = "y";
+    enableZshIntegration = lib.mkDefault false;
 
     settings = {
       opener.pdf = [
         {
-          run = "tdf %s";
+          run = "${lib.getExe pkgs.tdf} %s";
           block = true;
           desc = "PDF viewer";
           for = "unix";
@@ -35,11 +34,6 @@
           run = "plugin smart-filter";
           desc = "Smart filter";
         }
-        {
-          on = [ "<C-d>" ];
-          run = "plugin drag";
-          desc = "Drag Files";
-        }
       ];
     };
 
@@ -47,12 +41,9 @@
       inherit (pkgs.yaziPlugins)
         jump-to-char
         smart-filter
-        drag
         ;
     };
   };
 
-  home.packages = with pkgs; [
-    ripdrag
-  ];
+  home.packages = [ pkgs.tdf ];
 }
