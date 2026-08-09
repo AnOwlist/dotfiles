@@ -21,7 +21,6 @@ in
   imports = [ inputs.niri-flake.homeModules.niri ];
 
   home.packages = with pkgs; [
-    awww
     recordScreen
     xwayland-satellite
   ];
@@ -41,10 +40,6 @@ in
       touchpad.dwt = true;
     };
     prefer-no-csd = true;
-    spawn-at-startup = [
-      { command = [ (lib.getExe pkgs.waybar) ]; }
-      { command = [ (lib.getExe' pkgs.awww "awww-daemon") ]; }
-    ];
     hotkey-overlay.skip-at-startup = true;
     cursor.theme = "Bibata-Modern-Classic";
     cursor.hide-after-inactive-ms = 1000;
