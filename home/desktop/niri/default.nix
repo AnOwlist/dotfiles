@@ -1,20 +1,37 @@
 {
   inputs,
+  lib,
   pkgs,
   ...
 }:
+let
+  recordScreen = pkgs.writeShellApplication {
+    name = "record-screen";
+    runtimeInputs = [
+      pkgs.coreutils
+      pkgs.wf-recorder
+      pkgs.wf-recorder-toggle
+    ];
+    text = ''
+      exec wf-recorder-toggle -f "$HOME/videos/wf-recorder/$(date +%F-%H-%M-%S).mp4"
+    '';
+  };
+in
 {
   imports = [ inputs.niri-flake.homeModules.niri ];
 
   home.packages = with pkgs; [
     awww
+    recordScreen
     xwayland-satellite
   ];
+
+  home.file."videos/wf-recorder/.keep".text = "";
 
   programs.niri.package = pkgs.niri;
 
   programs.niri.settings = {
-    binds = import ./key-binds.nix;
+    binds = import ./key-binds.nix { inherit lib pkgs recordScreen; };
     input = {
       focus-follows-mouse = {
         enable = true;
@@ -25,8 +42,8 @@
     };
     prefer-no-csd = true;
     spawn-at-startup = [
-      { command = [ "waybar" ]; }
-      { command = [ "awww-daemon" ]; }
+      { command = [ (lib.getExe pkgs.waybar) ]; }
+      { command = [ (lib.getExe' pkgs.awww "awww-daemon") ]; }
     ];
     hotkey-overlay.skip-at-startup = true;
     cursor.theme = "Bibata-Modern-Classic";

@@ -1,11 +1,19 @@
 {
+  lib,
+  pkgs,
+  recordScreen,
+}:
+let
+  inherit (lib) getExe getExe';
+in
+{
   "Mod+Shift+Slash".action.show-hotkey-overlay = { };
 
-  "Mod+Return".action.spawn = "kitty";
-  "Mod+D".action.spawn = "fuzzel";
-  "Mod+T".action.spawn = "wleave";
+  "Mod+Return".action.spawn = getExe pkgs.kitty;
+  "Mod+D".action.spawn = getExe pkgs.fuzzel;
+  "Mod+T".action.spawn = getExe pkgs.wleave;
   "Mod+B".action.spawn = [
-    "pkill"
+    (getExe' pkgs.procps "pkill")
     "-SIGUSR1"
     "waybar"
   ];
@@ -103,14 +111,12 @@
   "Alt+Print".action.screenshot-window = {
     write-to-disk = false;
   };
-  "Mod+S".action.spawn-sh = [
-    "wf-recorder-toggle -f \"$HOME/Videos/wf-recorder/$(date +%F-%H-%M-%S).mp4\""
-  ];
+  "Mod+S".action.spawn = getExe recordScreen;
 
   "XF86AudioRaiseVolume" = {
     allow-when-locked = true;
     action.spawn = [
-      "wpctl"
+      (getExe' pkgs.wireplumber "wpctl")
       "set-volume"
       "@DEFAULT_AUDIO_SINK@"
       "0.05+"
@@ -119,7 +125,7 @@
   "XF86AudioLowerVolume" = {
     allow-when-locked = true;
     action.spawn = [
-      "wpctl"
+      (getExe' pkgs.wireplumber "wpctl")
       "set-volume"
       "@DEFAULT_AUDIO_SINK@"
       "0.05-"
@@ -128,7 +134,7 @@
   "XF86MonBrightnessUp" = {
     allow-when-locked = true;
     action.spawn = [
-      "brightnessctl"
+      (getExe pkgs.brightnessctl)
       "set"
       "5%+"
     ];
@@ -136,7 +142,7 @@
   "XF86MonBrightnessDown" = {
     allow-when-locked = true;
     action.spawn = [
-      "brightnessctl"
+      (getExe pkgs.brightnessctl)
       "set"
       "5%-"
     ];
@@ -144,7 +150,7 @@
   "XF86AudioMute" = {
     allow-when-locked = true;
     action.spawn = [
-      "wpctl"
+      (getExe' pkgs.wireplumber "wpctl")
       "set-mute"
       "@DEFAULT_AUDIO_SINK@"
       "toggle"
@@ -153,7 +159,7 @@
   "XF86AudioMicMute" = {
     allow-when-locked = true;
     action.spawn = [
-      "wpctl"
+      (getExe' pkgs.wireplumber "wpctl")
       "set-mute"
       "@DEFAULT_AUDIO_SOURCE@"
       "toggle"

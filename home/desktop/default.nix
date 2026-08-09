@@ -30,8 +30,6 @@
     procps
     slurp
     systemd
-    wf-recorder
-    wf-recorder-toggle
     wireplumber
   ];
 

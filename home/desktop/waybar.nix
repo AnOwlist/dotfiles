@@ -1,3 +1,11 @@
+{ lib, pkgs, ... }:
+let
+  coreutils = pkgs.coreutils;
+  date = lib.getExe' coreutils "date";
+  playerctl = lib.getExe pkgs.playerctl;
+  printf = lib.getExe' coreutils "printf";
+  test = lib.getExe' coreutils "test";
+in
 {
   programs.waybar = {
     enable = true;
@@ -147,7 +155,7 @@
         ];
         "custom/launcher" = {
           "format" = " ";
-          "on-click" = "exec wallpaper_random";
+          "on-click" = "exec ${lib.getExe pkgs.wallpaper_random}";
           "tooltip" = false;
         };
         "temperature" = {
@@ -180,7 +188,7 @@
               ""
             ];
           };
-          "on-click" = "pamixer -t";
+          "on-click" = "${lib.getExe pkgs.pamixer} -t";
           "tooltip" = false;
         };
         "battery" = {
@@ -204,7 +212,7 @@
           "format" = "󰖨 {percent}%";
         };
         "custom/clock" = {
-          "exec" = "date '+%H:%M  %a %b %-d'";
+          "exec" = "${date} '+%H:%M  %a %b %-d'";
           "interval" = 1;
           "tooltip" = false;
         };
@@ -222,10 +230,10 @@
         "custom/media" = {
           "max-length" = 100;
           "exec" = ''
-            playerctl -l | while read -r p; do [ "$(playerctl -p "$p" status 2>/dev/null)" = Playing ] && playerctl -p "$p" metadata title && break; done
+            ${playerctl} -l | while read -r p; do ${test} "$(${playerctl} -p "$p" status 2>/dev/null)" = Playing && ${playerctl} -p "$p" metadata title && break; done
           '';
           "on-click" = ''
-            playerctl -l | while read -r p; do [ "$(playerctl -p "$p" status 2>/dev/null)" = Playing ] && playerctl -p "$p" play-pause && break; done
+            ${playerctl} -l | while read -r p; do ${test} "$(${playerctl} -p "$p" status 2>/dev/null)" = Playing && ${playerctl} -p "$p" play-pause && break; done
           '';
           "tooltip" = false;
           "interval" = 10;
@@ -240,11 +248,11 @@
         };
         "custom/powermenu" = {
           "format" = "";
-          "on-click" = "wleave";
+          "on-click" = lib.getExe pkgs.wleave;
           "tooltip" = false;
         };
         "custom/wf-recorder" = {
-          "exec" = "test -e \"$XDG_RUNTIME_DIR/wf-recorder.pid\" && printf '●'";
+          "exec" = "${test} -e \"$XDG_RUNTIME_DIR/wf-recorder.pid\" && ${printf} '●'";
           "interval" = 1;
         };
         "tray" = {
