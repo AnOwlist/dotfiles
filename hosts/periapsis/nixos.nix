@@ -6,21 +6,22 @@
 }:
 let
   username = "anowlist";
-  hashedPassword = "$6$CA/1ptx4zRUe....$.HTD.apejf/k6OPuCxOafZMehUMcuVMuNeFpR7WdH5prfXnLYX7gNPkZZkLhroPOSc52Njq/55T2.3eRPKL8J0";
   hostname = "periapsis";
+  hashedPassword = "$6$CA/1ptx4zRUe....$.HTD.apejf/k6OPuCxOafZMehUMcuVMuNeFpR7WdH5prfXnLYX7gNPkZZkLhroPOSc52Njq/55T2.3eRPKL8J0";
 in
 {
   imports = [
     ./hardware-configuration.nix
-    (import ../nixos.nix username hashedPassword hostname)
-    ../desktop
+    ../modules/base.nix
+    ../modules/container.nix
+    ../modules/desktop
 
     inputs.home-manager.nixosModules.home-manager
     {
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
-        users."${username}" = import ./home-manager.nix username;
+        users.${username} = import ./home-manager.nix { inherit username; };
         extraSpecialArgs = { inherit inputs; };
       };
     }
@@ -42,12 +43,28 @@ in
     };
   };
 
-  networking = {
-    nftables.enable = true;
-    firewall = {
-      enable = true;
-    };
+  users.users.${username} = {
+    isNormalUser = true;
+    shell = pkgs.zsh;
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "audio"
+      "video"
+      "input"
+    ];
+    inherit hashedPassword;
   };
+
+  networking = {
+    hostName = hostname;
+    nftables.enable = true;
+  };
+
+  nix.settings.trusted-users = [
+    "root"
+    username
+  ];
 
   console.keyMap = "jp106";
 
@@ -63,7 +80,6 @@ in
     thermald.enable = true;
     logind.settings.Login.HandleLidSwitch = "ignore";
 
-    desktopManager.gnome.enable = true;
   };
 
   hardware.graphics = {
