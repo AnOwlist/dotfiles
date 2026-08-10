@@ -1,4 +1,12 @@
 { pkgs, ... }:
+let
+  tomlFormat = pkgs.formats.toml { };
+  karukanDictionary = pkgs.fetchzip {
+    url = "https://github.com/togatoga/karukan/releases/download/v0.1.0/dict.tgz";
+    hash = "sha256-gWUZH3FQfuksslb/AqUvBU0OVFe9DMg0+8SpGHlASqA=";
+    stripRoot = false;
+  };
+in
 {
   i18n.inputMethod = {
     enable = true;
@@ -28,23 +36,18 @@
     };
   };
 
+  # The Fcitx module supplies the source; recursive linking keeps runtime files.
   xdg.configFile.fcitx5 = {
     recursive = true;
     force = true;
   };
 
-  home.file.".local/share/karukan-im/dict.bin".source = "${
-    pkgs.fetchzip {
-      url = "https://github.com/togatoga/karukan/releases/download/v0.1.0/dict.tgz";
-      hash = "sha256-gWUZH3FQfuksslb/AqUvBU0OVFe9DMg0+8SpGHlASqA=";
-      stripRoot = false;
-    }
-  }/dict.bin";
+  xdg.dataFile."karukan-im/dict.bin".source = "${karukanDictionary}/dict.bin";
 
-  home.file.".config/karukan-im/config.toml".text =
-    "
-    [conversion]
-    live_conversion = true
-    fullwidth_symbols = true
-  ";
+  xdg.configFile."karukan-im/config.toml".source = tomlFormat.generate "karukan-im-config.toml" {
+    conversion = {
+      live_conversion = true;
+      fullwidth_symbols = true;
+    };
+  };
 }
