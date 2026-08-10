@@ -61,10 +61,26 @@ in
     nftables.enable = true;
   };
 
-  nix.settings.trusted-users = [
-    "root"
-    username
-  ];
+  nixpkgs = {
+    config.allowUnfree = true;
+    overlays = [
+      inputs.nur-yadokani.overlays.nur
+    ];
+  };
+  nix.settings = {
+    trusted-users = [
+      "root"
+      username
+    ];
+    extra-substituters = [
+      "https://yadokani389.cachix.org"
+      "https://oxalica.cachix.org"
+    ];
+    extra-trusted-public-keys = [
+      "yadokani389.cachix.org-1:xHw9jijQFNDKlNprHbQpXX6cVOUO4m/n2lBfx6Bq4jg="
+      "oxalica.cachix.org-1:h0iRBw6tQD8+51ZvnNEBPbwLR58UD7klauDBWzBdugQ="
+    ];
+  };
 
   console.keyMap = "jp106";
 
