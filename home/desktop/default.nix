@@ -13,7 +13,7 @@
     ./onlyoffice.nix
     ./theme.nix
     ./wallpaper_random.nix
-    ./waybar.nix
+    ./waybar
     ./wleave.nix
     ./xremap.nix
     ./zen-browser.nix

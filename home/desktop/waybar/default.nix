@@ -2,9 +2,13 @@
 let
   coreutils = pkgs.coreutils;
   date = lib.getExe' coreutils "date";
-  playerctl = lib.getExe pkgs.playerctl;
   printf = lib.getExe' coreutils "printf";
   test = lib.getExe' coreutils "test";
+  media = pkgs.writeShellApplication {
+    name = "waybar-media";
+    runtimeInputs = [ pkgs.playerctl ];
+    text = builtins.readFile ./media.sh;
+  };
 in
 {
   programs.waybar = {
@@ -13,125 +17,7 @@ in
       enable = true;
       targets = [ "graphical-session.target" ];
     };
-    style = ''
-      * {
-        font-family: "JetBrainsMono Nerd Font";
-        font-size: 12pt;
-        font-weight: bold;
-        border-radius: 8px;
-        transition-property: background-color;
-        transition-duration: 0.5s;
-      }
-      @keyframes blink_red {
-        to {
-          background-color: rgb(242, 143, 173);
-          color: rgb(26, 24, 38);
-        }
-      }
-      .urgent {
-        animation-name: blink_red;
-        animation-duration: 1s;
-        animation-timing-function: linear;
-        animation-iteration-count: infinite;
-        animation-direction: alternate;
-      }
-      window#waybar {
-        background-color: transparent;
-      }
-      window > box {
-        margin-left: 5px;
-        margin-right: 5px;
-        margin-top: 5px;
-        background-color: #1e1e2a;
-        padding: 3px;
-        padding-left:8px;
-        border: 2px none #33ccff;
-      }
-      tooltip {
-        background: rgb(48, 45, 65);
-      }
-      tooltip label {
-        color: rgb(217, 224, 238);
-      }
-      #custom-launcher {
-        font-size: 20px;
-        padding-left: 8px;
-        padding-right: 6px;
-        color: #7ebae4;
-      }
-      #mode, #clock, #custom-clock, #memory, #temperature,#cpu,#custom-media, #custom-wall, #temperature, #backlight, #pulseaudio, #network, #battery, #custom-powermenu, #custom-cava-internal {
-        padding-left: 10px;
-        padding-right: 10px;
-      }
-      #battery {
-        color: rgb(181, 181, 224);
-      }
-      #battery.warning {
-        color: orange;
-      }
-      #battery.critical {
-        color: red;
-      }
-      #memory {
-        color: rgb(181, 232, 224);
-      }
-      #cpu {
-        color: rgb(245, 194, 231);
-      }
-      #clock, #custom-clock {
-        color: rgb(217, 224, 238);
-      }
-      #custom-wall {
-        color: #33ccff;
-      }
-      #custom-media {
-        color: #fffaf0;
-      }
-      #temperature {
-        color: rgb(150, 205, 251);
-      }
-      #backlight {
-        color: rgb(248, 189, 150);
-      }
-      #pulseaudio {
-        color: rgb(245, 224, 220);
-      }
-      #network {
-        color: #ABE9B3;
-      }
-      #network.disconnected {
-        color: rgb(255, 255, 255);
-      }
-      #custom-powermenu {
-        color: rgb(242, 143, 173);
-        padding-right: 8px;
-      }
-      #custom-wf-recorder {
-        color: rgb(255, 100, 100);
-        font-size: 20px;
-        padding-right: 10px;
-        padding-left: 10px;
-      }
-      #tray {
-        padding-right: 8px;
-        padding-left: 10px;
-      }
-      #mpd.paused {
-        color: #414868;
-        font-style: italic;
-      }
-      #mpd.stopped {
-        background: transparent;
-      }
-      #mpd {
-        color: #c0caf5;
-      }
-      #cava {
-        padding-right: 10px;
-        padding-left: 10px;
-        color: #87cefa;
-      }
-    '';
+    style = builtins.readFile ./style.css;
     settings = [
       {
         position = "top";
@@ -162,11 +48,14 @@ in
           "format" = " {temperatureC}°C";
         };
         "cava" = {
-          framerate = 30;
-          bars = 12;
+          framerate = 60;
+          bars = 18;
+          hide_on_silence = true;
+          sleep_timer = 1;
           method = "pipewire";
           bar_delimiter = 0;
           format-icons = [
+            "▁"
             "▁"
             "▂"
             "▃"
@@ -229,14 +118,10 @@ in
         };
         "custom/media" = {
           "max-length" = 100;
-          "exec" = ''
-            ${playerctl} -l | while read -r p; do ${test} "$(${playerctl} -p "$p" status 2>/dev/null)" = Playing && ${playerctl} -p "$p" metadata title && break; done
-          '';
-          "on-click" = ''
-            ${playerctl} -l | while read -r p; do ${test} "$(${playerctl} -p "$p" status 2>/dev/null)" = Playing && ${playerctl} -p "$p" play-pause && break; done
-          '';
+          "exec" = "${lib.getExe media} status";
+          "on-click" = "${lib.getExe media} toggle";
           "tooltip" = false;
-          "interval" = 10;
+          "interval" = 1;
         };
         "network" = {
           "format-disconnected" = "󰯡 ";
