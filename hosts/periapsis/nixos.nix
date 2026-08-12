@@ -22,7 +22,10 @@ in
         useGlobalPkgs = true;
         useUserPackages = true;
         users.${username} = import ./home-manager.nix { inherit username; };
-        extraSpecialArgs = { inherit inputs; };
+        extraSpecialArgs = {
+          inherit inputs;
+          hyprlockIconDirectory = "pictures/hyprlock/icon";
+        };
       };
     }
   ];

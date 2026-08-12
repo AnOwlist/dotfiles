@@ -9,7 +9,7 @@
       buttons = [
         {
           label = "lock";
-          action = "hyprlock";
+          action = "hyprlock-wrapper";
           text = "Lock";
           keybind = "l";
           icon = "${pkgs.wleave}/share/wleave/icons/lock.svg";
