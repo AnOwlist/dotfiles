@@ -22,6 +22,8 @@
     };
   };
 
+  my.desktop.hyprlock.iconDirectory = "pictures/hyprlock/icon";
+
   home = {
     inherit username;
     homeDirectory = "/home/${username}";

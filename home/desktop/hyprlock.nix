@@ -1,16 +1,17 @@
 {
-  hyprlockIconDirectory ? null,
+  config,
   lib,
   pkgs,
   ...
 }:
 let
+  cfg = config.my.desktop.hyprlock;
   coldWhite = "rgba(220, 225, 255, 0.95)";
   shadowColor = "rgba(0, 0, 0, 0.45)";
   userNameCommand = lib.getExe' pkgs.coreutils "id";
   hostNameCommand = lib.getExe' pkgs.hostname "hostname";
   iconSync =
-    if hyprlockIconDirectory == null then
+    if cfg.iconDirectory == null then
       ''
         icon_link="$HOME/.local/share/hyprlock/user-icon"
 
@@ -23,7 +24,7 @@ let
       ''
     else
       ''
-        icon_directory="$HOME/${hyprlockIconDirectory}"
+        icon_directory="$HOME"/${lib.escapeShellArg cfg.iconDirectory}
         icon_link="$HOME/.local/share/hyprlock/user-icon"
         icon_candidates=()
 
@@ -132,27 +133,35 @@ let
   '';
 in
 {
-  programs.hyprlock = {
-    enable = true;
-    settings = {
-      general = {
-        ignore_empty_input = true;
-        hide_cursor = true;
-      };
+  options.my.desktop.hyprlock.iconDirectory = lib.mkOption {
+    type = lib.types.nullOr lib.types.str;
+    default = null;
+    example = "pictures/hyprlock/icon";
+    description = ''
+      Directory containing the Hyprlock user icon, relative to the user's
+      home directory. When null, no external user icon is used.
+    '';
+  };
 
-      background = [
-        {
-          path = "screenshot";
-          blur_passes = 3;
-          blur_size = 8;
-          brightness = 0.9;
-        }
-      ];
+  config = {
+    programs.hyprlock = {
+      enable = true;
+      settings = {
+        general = {
+          ignore_empty_input = true;
+          hide_cursor = true;
+        };
 
-      image = [
-        {
-          # A missing image is not rendered, so the rest of the lock screen
-          # remains usable when the external icon is unavailable.
+        background = [
+          {
+            path = "screenshot";
+            blur_passes = 3;
+            blur_size = 8;
+            brightness = 0.9;
+          }
+        ];
+
+        image = lib.optional (cfg.iconDirectory != null) {
           path = "~/.local/share/hyprlock/user-icon";
           size = 100;
           rounding = -1;
@@ -162,95 +171,95 @@ in
 
           valign = "center";
           halign = "center";
-        }
-      ];
+        };
 
-      input-field = [
-        {
-          size = "300, 50";
-          position = "0, -330";
+        input-field = [
+          {
+            size = "300, 50";
+            position = "0, -330";
 
-          outline_thickness = 1;
-          inner_color = "rgba(0, 0, 0, 0.3)";
-          outer_color = "rgba(0, 0, 0, 0)";
-          font_color = "rgba(100, 100, 240, 0.8)";
+            outline_thickness = 1;
+            inner_color = "rgba(0, 0, 0, 0.3)";
+            outer_color = "rgba(0, 0, 0, 0)";
+            font_color = "rgba(100, 100, 240, 0.8)";
 
-          # fade_on_empty = false;
-          placeholder_text = "";
-          fail_text = "<i>$FAIL</i>";
+            # fade_on_empty = false;
+            placeholder_text = "";
+            fail_text = "<i>$FAIL</i>";
 
-          dots_spacing = 0.2;
-          dots_center = true;
-        }
-      ];
+            dots_spacing = 0.2;
+            dots_center = true;
+          }
+        ];
 
-      label = [
-        {
-          text = "cmd[update:1000] ${batteryStatus}";
-          position = "-30, -25";
-          font_size = 18;
+        label = [
+          {
+            text = "cmd[update:1000] ${batteryStatus}";
+            position = "-30, -25";
+            font_size = 18;
 
-          color = coldWhite;
-          font_family = "JetBrainsMono Nerd Font Bold";
-          shadow_passes = 1;
-          shadow_size = 2;
-          shadow_color = shadowColor;
-          shadow_boost = 1.0;
+            color = coldWhite;
+            font_family = "JetBrainsMono Nerd Font Bold";
+            shadow_passes = 1;
+            shadow_size = 2;
+            shadow_color = shadowColor;
+            shadow_boost = 1.0;
 
-          valign = "top";
-          halign = "right";
-        }
+            valign = "top";
+            halign = "right";
+          }
 
-        {
-          text = "cmd[update:1000] echo \"$(date +'%A, %B %-d')\" ";
-          position = "0, 300";
-          font_size = 25;
+          {
+            text = "cmd[update:1000] echo \"$(date +'%A, %B %-d')\" ";
+            position = "0, 300";
+            font_size = 25;
 
-          color = coldWhite;
-          font_family = "JetBrainsMono Nerd Font ExtraBold";
-          shadow_passes = 1;
-          shadow_size = 2;
-          shadow_color = shadowColor;
-          shadow_boost = 1.0;
+            color = coldWhite;
+            font_family = "JetBrainsMono Nerd Font ExtraBold";
+            shadow_passes = 1;
+            shadow_size = 2;
+            shadow_color = shadowColor;
+            shadow_boost = 1.0;
 
-          valign = "center";
-          halign = "center";
-        }
+            valign = "center";
+            halign = "center";
+          }
 
-        {
-          text = "$TIME";
-          position = "0, 200";
-          font_size = 100;
+          {
+            text = "$TIME";
+            position = "0, 200";
+            font_size = 100;
 
-          color = coldWhite;
-          font_family = "JetBrainsMono Nerd Font ExtraBold";
-          shadow_passes = 1;
-          shadow_size = 3;
-          shadow_color = shadowColor;
-          shadow_boost = 1.0;
+            color = coldWhite;
+            font_family = "JetBrainsMono Nerd Font ExtraBold";
+            shadow_passes = 1;
+            shadow_size = 3;
+            shadow_color = shadowColor;
+            shadow_boost = 1.0;
 
-          valign = "center";
-          halign = "center";
-        }
+            valign = "center";
+            halign = "center";
+          }
 
-        {
-          text = "cmd[update:60000] ${userAndHost}";
-          position = "0, -270";
-          font_size = 18;
+          {
+            text = "cmd[update:60000] ${userAndHost}";
+            position = "0, -270";
+            font_size = 18;
 
-          color = coldWhite;
-          font_family = "FiraCode Nerd Font ExtraBold";
-          shadow_passes = 1;
-          shadow_size = 2;
-          shadow_color = shadowColor;
-          shadow_boost = 1.0;
+            color = coldWhite;
+            font_family = "FiraCode Nerd Font ExtraBold";
+            shadow_passes = 1;
+            shadow_size = 2;
+            shadow_color = shadowColor;
+            shadow_boost = 1.0;
 
-          valign = "center";
-          halign = "center";
-        }
-      ];
+            valign = "center";
+            halign = "center";
+          }
+        ];
+      };
     };
-  };
 
-  home.packages = [ hyprlockWrapper ];
+    home.packages = [ hyprlockWrapper ];
+  };
 }
