@@ -69,11 +69,12 @@ in
         "pulseaudio" = {
           "scroll-step" = 1;
           "format" = "{icon} {volume}%";
-          "format-muted" = "󰖁 Muted";
+          "format-muted" = " Muted";
           "format-icons" = {
             "default" = [
               ""
               ""
+              ""
               ""
             ];
           };
