@@ -107,14 +107,14 @@ in
         };
         "memory" = {
           "interval" = 1;
-          "format" = "󰻠 {percentage}%";
+          "format" = "󰍛 {percentage}%";
           "states" = {
             "warning" = 85;
           };
         };
         "cpu" = {
           "interval" = 1;
-          "format" = "󰍛 {usage}%";
+          "format" = "󰻠 {usage}%";
         };
         "custom/media" = {
           "max-length" = 100;
