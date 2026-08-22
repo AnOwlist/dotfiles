@@ -6,6 +6,26 @@
 }:
 let
   cfg = config.my.desktop.hyprlock;
+  iconSize = 100;
+  iconFormat = "PNG";
+  iconTransformArgs = [
+    "-auto-orient"
+    "-filter"
+    "Mitchell"
+    "-resize"
+    "${toString iconSize}x${toString iconSize}^"
+    "-gravity"
+    "center"
+    "-extent"
+    "${toString iconSize}x${toString iconSize}"
+    "-strip"
+  ];
+  iconTransformSignature = builtins.hashString "sha256" (
+    builtins.toJSON {
+      inherit iconFormat iconTransformArgs;
+      imageMagickVersion = pkgs.imagemagick.version;
+    }
+  );
   coldWhite = "rgba(220, 225, 255, 0.95)";
   shadowColor = "rgba(0, 0, 0, 0.45)";
   userNameCommand = lib.getExe' pkgs.coreutils "id";
@@ -14,6 +34,7 @@ let
     if cfg.iconDirectory == null then
       ''
         icon_link="$HOME/.local/share/hyprlock/user-icon"
+        icon_cache_directory="''${XDG_CACHE_HOME:-$HOME/.cache}/hyprlock"
 
         if [[ -L "$icon_link" ]]; then
           rm -f "$icon_link"
@@ -21,14 +42,18 @@ let
           printf '%s\n' "hyprlock icon target exists and is not a symbolic link" >&2
           exit 1
         fi
+        rm -f "$icon_cache_directory/user-icon.png" "$icon_cache_directory/user-icon.meta"
       ''
     else
       ''
         icon_directory="$HOME"/${lib.escapeShellArg cfg.iconDirectory}
         icon_link="$HOME/.local/share/hyprlock/user-icon"
+        icon_cache_directory="''${XDG_CACHE_HOME:-$HOME/.cache}/hyprlock"
+        processed_icon="$icon_cache_directory/user-icon.png"
+        icon_metadata="$icon_cache_directory/user-icon.meta"
         icon_candidates=()
 
-        mkdir -p "$icon_directory" "$(dirname "$icon_link")"
+        mkdir -p "$icon_directory" "$(dirname "$icon_link")" "$icon_cache_directory"
 
         shopt -s dotglob nullglob
         for candidate in "$icon_directory"/*; do
@@ -56,13 +81,39 @@ let
             printf '%s\n' "hyprlock icon target exists and is not a symbolic link" >&2
             exit 1
           fi
+          rm -f "$processed_icon" "$icon_metadata"
         else
           if [[ -e "$icon_link" && ! -L "$icon_link" ]]; then
             printf '%s\n' "hyprlock icon target exists and is not a symbolic link" >&2
             exit 1
           fi
 
-          ln -sfn "''${icon_candidates[0]}" "$icon_link"
+          source_signature="${iconTransformSignature}:$(stat -Lc '%d:%i:%s:%Y' -- "''${icon_candidates[0]}")"
+          cached_signature=""
+          if [[ -r "$icon_metadata" ]]; then
+            read -r cached_signature < "$icon_metadata" || true
+          fi
+
+          if [[ ! -f "$processed_icon" || "$source_signature" != "$cached_signature" ]]; then
+            processed_icon_tmp="$processed_icon.tmp.$$"
+            icon_metadata_tmp="$icon_metadata.tmp.$$"
+
+            if magick "''${icon_candidates[0]}" \
+              ${lib.escapeShellArgs iconTransformArgs} \
+              "${iconFormat}:$processed_icon_tmp"; then
+              mv -f "$processed_icon_tmp" "$processed_icon"
+              printf '%s\n' "$source_signature" > "$icon_metadata_tmp"
+              mv -f "$icon_metadata_tmp" "$icon_metadata"
+            else
+              printf '%s\n' "failed to process hyprlock icon; starting without an icon" >&2
+              rm -f "$processed_icon_tmp" "$icon_metadata_tmp" "$processed_icon" "$icon_metadata" "$icon_link"
+              icon_count=0
+            fi
+          fi
+
+          if (( icon_count == 1 )); then
+            ln -sfn "$processed_icon" "$icon_link"
+          fi
         fi
       '';
   hyprlockWrapper = pkgs.writeShellApplication {
@@ -71,6 +122,7 @@ let
       pkgs.coreutils
       pkgs.file
       pkgs.hyprlock
+      pkgs.imagemagick
     ];
     text = ''
       ${iconSync}
@@ -163,7 +215,7 @@ in
 
         image = lib.optional (cfg.iconDirectory != null) {
           path = "~/.local/share/hyprlock/user-icon";
-          size = 100;
+          size = iconSize;
           rounding = -1;
           border_size = 3;
           border_color = coldWhite;
