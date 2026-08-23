@@ -69,6 +69,17 @@ in
       initContent = ''
         bindkey '^ ' forward-word
 
+        autoload -Uz edit-command-line
+        zle -N edit-command-line
+
+        edit-command-line-at-end() {
+          zle edit-command-line
+          CURSOR=$#BUFFER
+        }
+
+        zle -N edit-command-line-at-end
+        bindkey '^X^E' edit-command-line-at-end
+
         ${pkgs.any-nix-shell}/bin/any-nix-shell zsh | source /dev/stdin
 
         # zoxide itself is initialized by Home Manager; this is only a custom ZLE widget.

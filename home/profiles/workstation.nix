@@ -32,7 +32,8 @@ in
     };
 
     kitty.extraConfig = ''
-      scrollback_pager ${lib.getExe nvim} -c "setlocal autowriteall" -c "silent write! /tmp/kitty_scrollback_buffer | te ${lib.getExe' pkgs.coreutils "cat"} /tmp/kitty_scrollback_buffer - "
+      scrollback_pager ${lib.getExe nvim} --cmd "set eventignore=FileType" +"nnoremap q ZQ" +"call nvim_open_term(0, {})" +"set nomodified nolist" +"$" -
+      map ctrl+shift+h combine : goto_layout splits : launch --type=window --location=split --cwd=current --stdin-source=@screen_scrollback --stdin-add-formatting ${lib.getExe nvim} --cmd "set eventignore=FileType" +"nnoremap q ZQ" +"call nvim_open_term(0, {})" +"set nomodified nolist" +"$" -
     '';
     kitty.shellIntegration.enableZshIntegration = true;
 
