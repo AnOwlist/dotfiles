@@ -14,8 +14,10 @@
       font_size 12.0
       font_family FiraCode Nerd Font
 
+      map ctrl+shift+enter new_window_with_cwd
       map ctrl+shift+; change_font_size all +2.0
       map ctrl+shift+n new_os_window_with_cwd
+      map ctrl+shift+t new_tab_with_cwd
 
       background_opacity 0.9
       background_blur 0
