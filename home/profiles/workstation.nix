@@ -6,6 +6,7 @@
 }:
 let
   nvim = inputs.nvf.packages."${pkgs.stdenv.hostPlatform.system}".default;
+  nvimScrollbackCommand = ''${lib.getExe nvim} --cmd "set eventignore=FileType" +"nnoremap q ZQ" +"call nvim_open_term(0, {})" +"set nomodified nolist" +"$" -'';
 in
 {
   imports = [
@@ -31,11 +32,14 @@ in
       "https://gist.github.com".helper = "${lib.getExe pkgs.gh} auth git-credential";
     };
 
-    kitty.extraConfig = ''
-      scrollback_pager ${lib.getExe nvim} --cmd "set eventignore=FileType" +"nnoremap q ZQ" +"call nvim_open_term(0, {})" +"set nomodified nolist" +"$" -
-      map ctrl+shift+h combine : goto_layout splits : launch --type=window --location=split --cwd=current --stdin-source=@screen_scrollback --stdin-add-formatting ${lib.getExe nvim} --cmd "set eventignore=FileType" +"nnoremap q ZQ" +"call nvim_open_term(0, {})" +"set nomodified nolist" +"$" -
-    '';
-    kitty.shellIntegration.enableZshIntegration = true;
+    kitty = {
+      shellIntegration.enableZshIntegration = true;
+      extraConfig = ''
+        scrollback_pager ${nvimScrollbackCommand}
+
+        map ctrl+shift+h combine : goto_layout splits : launch --type=window --location=split --cwd=current --stdin-source=@screen_scrollback --stdin-add-formatting ${nvimScrollbackCommand}
+      '';
+    };
 
     yazi = {
       enableZshIntegration = true;

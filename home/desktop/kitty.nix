@@ -4,28 +4,24 @@
     enable = true;
     shellIntegration.enableZshIntegration = lib.mkDefault false;
     extraConfig = ''
+      allow_remote_control yes
       auto_reload_config -1
-
       clipboard_control write-clipboard read-clipboard write-primary read-primary
 
-      # Remove close window confirm
       confirm_os_window_close 0
+      enable_audio_bell no
 
-      font_size 12.0
       font_family FiraCode Nerd Font
+      font_size 12.0
 
       map ctrl+shift+enter new_window_with_cwd
-      map ctrl+shift+; change_font_size all +2.0
-      map ctrl+shift+n new_os_window_with_cwd
       map ctrl+shift+t new_tab_with_cwd
+      map ctrl+shift+n new_os_window_with_cwd
+      map ctrl+shift+; change_font_size all +2.0
 
       background_opacity 0.9
       background_blur 0
-
-      allow_remote_control yes
       dynamic_background_opacity yes
-
-      enable_audio_bell no
 
       # The basic colors
       foreground              #CDD6F4
