@@ -56,12 +56,11 @@ in
       syntaxHighlighting = {
         enable = true;
         styles = {
-          command = "fg=${promptColors.success}";
-          builtin = "fg=${promptColors.success}";
-          function = "fg=${promptColors.success}";
-          alias = "fg=${promptColors.success}";
-          hashed-command = "fg=${promptColors.success}";
+          arg0 = "fg=${promptColors.success}";
           precommand = "fg=${promptColors.success}";
+          path = "fg=${promptColors.success},underline";
+          autodirectory = "fg=${promptColors.success},underline";
+          suffix-alias = "fg=${promptColors.success},underline";
           unknown-token = "fg=${promptColors.failure}";
         };
       };
