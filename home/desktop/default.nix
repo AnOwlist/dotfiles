@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   imports = [
     ./dunst.nix
@@ -36,6 +36,22 @@
   dconf.settings."org/gnome/desktop/interface".color-scheme = "prefer-dark";
 
   xdg = {
+    userDirs = {
+      enable = true;
+      createDirectories = false;
+      setSessionVariables = false;
+
+      desktop = null;
+      documents = "${config.home.homeDirectory}/documents";
+      download = "${config.home.homeDirectory}/downloads";
+      music = null;
+      pictures = "${config.home.homeDirectory}/pictures";
+      projects = "${config.home.homeDirectory}/projects";
+      publicShare = "${config.home.homeDirectory}/public";
+      templates = null;
+      videos = "${config.home.homeDirectory}/videos";
+    };
+
     mimeApps = {
       enable = true;
       defaultApplications = {

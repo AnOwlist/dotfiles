@@ -1,4 +1,5 @@
 {
+  config,
   inputs,
   lib,
   pkgs,
@@ -13,7 +14,7 @@ let
       pkgs.wf-recorder-toggle
     ];
     text = ''
-      exec wf-recorder-toggle -f "$HOME/videos/wf-recorder/$(date +%F-%H-%M-%S).mp4"
+      exec wf-recorder-toggle -f "${config.xdg.userDirs.videos}/wf-recorder/$(date +%FT%H-%M-%S).mp4"
     '';
   };
 in
@@ -30,6 +31,7 @@ in
   programs.niri.package = pkgs.niri;
 
   programs.niri.settings = {
+    screenshot-path = "${config.xdg.userDirs.pictures}/screenshots/%FT%H-%M-%S.png";
     binds = import ./key-binds.nix { inherit lib pkgs recordScreen; };
     input = {
       focus-follows-mouse = {

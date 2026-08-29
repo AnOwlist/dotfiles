@@ -1,9 +1,17 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   graphicalSessionTarget = "graphical-session.target";
   niriService = "niri.service";
   awwwDaemon = lib.getExe' pkgs.awww "awww-daemon";
   wallpaperRandom = lib.getExe pkgs.wallpaper_random;
+  wallpaperDirectory = "${config.xdg.userDirs.pictures}/wallpapers";
+  wallpaperDirectoryRelative = lib.removePrefix "${config.home.homeDirectory}/" wallpaperDirectory;
+  wallpaperRandomCommand = "${wallpaperRandom} --dir ${lib.escapeShellArg wallpaperDirectory}";
   wallpaperInitial = pkgs.writeShellApplication {
     name = "wallpaper-initial";
     runtimeInputs = [
@@ -12,7 +20,7 @@ let
       pkgs.findutils
     ];
     text = ''
-      wallpaper_dir="$HOME/wallpapers"
+      wallpaper_dir=${lib.escapeShellArg wallpaperDirectory}
       mapfile -d $'\0' -t wallpapers < <(find "$wallpaper_dir" -type f -print0)
 
       if ((''${#wallpapers[@]} == 0)); then
@@ -47,6 +55,8 @@ in
   home.packages = with pkgs; [
     wallpaper_random
   ];
+
+  home.file."${wallpaperDirectoryRelative}/.keep".text = "";
 
   systemd.user.services.awww-daemon = {
     Unit = {
@@ -92,7 +102,7 @@ in
     };
     Service = {
       Type = "oneshot";
-      ExecStart = wallpaperRandom;
+      ExecStart = wallpaperRandomCommand;
     };
   };
 

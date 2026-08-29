@@ -1,9 +1,15 @@
-{ lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 let
   coreutils = pkgs.coreutils;
   date = lib.getExe' coreutils "date";
   printf = lib.getExe' coreutils "printf";
   test = lib.getExe' coreutils "test";
+  wallpaperDirectory = "${config.xdg.userDirs.pictures}/wallpapers";
   media = pkgs.writeShellApplication {
     name = "waybar-media";
     runtimeInputs = [ pkgs.playerctl ];
@@ -41,7 +47,8 @@ in
         ];
         "custom/launcher" = {
           "format" = " ";
-          "on-click" = "exec ${lib.getExe pkgs.wallpaper_random}";
+          "on-click" =
+            "exec ${lib.getExe pkgs.wallpaper_random} --dir ${lib.escapeShellArg wallpaperDirectory}";
           "tooltip" = false;
         };
         "temperature" = {
