@@ -20,7 +20,8 @@ in
 
   "Mod+C".action.close-window = { };
   "Mod+W".action.toggle-column-tabbed-display = { };
-  "Mod+V".action.toggle-window-floating = { };
+  "Mod+V".action.switch-focus-between-floating-and-tiling = { };
+  "Mod+Shift+V".action.toggle-window-floating = { };
   "Mod+R".action.switch-preset-column-width = { };
   "Mod+E".action.switch-preset-window-height = { };
   "Mod+Shift+E".action.reset-window-height = { };
@@ -30,8 +31,8 @@ in
   "Mod+Period".action.expel-window-from-column = { };
 
   "Mod+Left".action.focus-column-or-monitor-left = { };
-  "Mod+Down".action.focus-window-or-monitor-down = { };
-  "Mod+Up".action.focus-window-or-monitor-up = { };
+  "Mod+Down".action.focus-window-or-workspace-down = { };
+  "Mod+Up".action.focus-window-or-workspace-up = { };
   "Mod+Right".action.focus-column-or-monitor-right = { };
   "Mod+H".action.focus-column-or-monitor-left = { };
   "Mod+J".action.focus-window-or-workspace-down = { };
@@ -41,7 +42,7 @@ in
   "Mod+Shift+Left".action.move-column-left-or-to-monitor-left = { };
   "Mod+Shift+Down".action.move-window-down-or-to-workspace-down = { };
   "Mod+Shift+Up".action.move-window-up-or-to-workspace-up = { };
-  "Mod+Shift+Right".action.move-column-to-monitor-right = { };
+  "Mod+Shift+Right".action.move-column-right-or-to-monitor-right = { };
   "Mod+Shift+H".action.move-column-left-or-to-monitor-left = { };
   "Mod+Shift+J".action.move-window-down-or-to-workspace-down = { };
   "Mod+Shift+K".action.move-window-up-or-to-workspace-up = { };
@@ -98,11 +99,15 @@ in
   "Mod+Ctrl+8".action.move-column-to-workspace = 8;
   "Mod+Ctrl+9".action.move-column-to-workspace = 9;
 
-  "Mod+Minus".action.set-column-width = "-10%";
-  "Mod+Equal".action.set-column-width = "+10%";
+  "Mod+Alt+Left".action.set-window-width = "-10%";
+  "Mod+Alt+Right".action.set-window-width = "+10%";
+  "Mod+Alt+H".action.set-window-width = "-10%";
+  "Mod+Alt+L".action.set-window-width = "+10%";
 
-  "Mod+Shift+Minus".action.set-window-height = "-10%";
-  "Mod+Shift+Equal".action.set-window-height = "+10%";
+  "Mod+Alt+Up".action.set-window-height = "-10%";
+  "Mod+Alt+Down".action.set-window-height = "+10%";
+  "Mod+Alt+K".action.set-window-height = "-10%";
+  "Mod+Alt+J".action.set-window-height = "+10%";
 
   "Print".action.screenshot = { };
   "Ctrl+Print".action.screenshot-screen = {

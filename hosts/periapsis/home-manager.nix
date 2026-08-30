@@ -12,7 +12,10 @@
     home-manager.enable = true;
 
     niri.settings = {
-      input.keyboard.xkb.layout = "jp";
+      input.keyboard.xkb = {
+        layout = "jp";
+        model = "jp106";
+      };
       outputs."eDP-1".scale = 1;
     };
 
