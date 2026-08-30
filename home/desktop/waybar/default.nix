@@ -109,7 +109,7 @@ in
           "format" = "󰖨 {percent}%";
         };
         "custom/clock" = {
-          "exec" = "${date} '+%H:%M  %a %b %-d'";
+          "exec" = "${date} '+%a %b %-d  %H:%M'";
           "interval" = 1;
           "tooltip" = false;
         };
@@ -132,10 +132,10 @@ in
           "interval" = 1;
         };
         "network" = {
-          "format-disconnected" = "󰯡 ";
-          "format-ethernet" = "󰒢 ";
-          "format-linked" = "󰖪 ";
-          "format-wifi" = "󰖩 ";
+          "format-disconnected" = "󰯡";
+          "format-ethernet" = "󰒢";
+          "format-linked" = "󰖪";
+          "format-wifi" = "󰖩";
           "interval" = 10;
           "tooltip" = false;
         };
@@ -145,7 +145,7 @@ in
           "tooltip" = false;
         };
         "custom/wf-recorder" = {
-          "exec" = "${test} -e \"$XDG_RUNTIME_DIR/wf-recorder.pid\" && ${printf} '●'";
+          "exec" = "${test} -e \"$XDG_RUNTIME_DIR/wf-recorder.pid\" && ${printf} ''";
           "interval" = 1;
         };
         "tray" = {

@@ -1,5 +1,5 @@
 * {
-  font-family: "JetBrainsMono Nerd Font";
+  font-family: "JetBrainsMono Nerd Font Propo";
   font-size: 12pt;
   font-weight: bold;
   border-radius: 8px;
@@ -124,7 +124,7 @@ tooltip label {
 
 #custom-powermenu {
   color: rgb(242, 143, 173);
-  padding-right: 8px;
+  padding-right: 10px;
 }
 
 #custom-wf-recorder {
