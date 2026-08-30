@@ -5,30 +5,39 @@
 }:
 let
   inherit (lib) getExe getExe';
+  noRepeat = action: {
+    inherit action;
+    repeat = false;
+  };
 in
 {
-  "Mod+Shift+Slash".action.show-hotkey-overlay = { };
+  "Mod+Shift+Slash" = noRepeat { show-hotkey-overlay = { }; };
 
-  "Mod+Return".action.spawn = getExe pkgs.kitty;
-  "Mod+D".action.spawn = getExe pkgs.fuzzel;
-  "Mod+T".action.spawn = getExe pkgs.wleave;
-  "Mod+B".action.spawn = [
-    (getExe' pkgs.procps "pkill")
-    "-SIGUSR1"
-    "waybar"
-  ];
+  "Mod+Return" = noRepeat { spawn = getExe pkgs.kitty; };
+  "Mod+D" = noRepeat { spawn = getExe pkgs.fuzzel; };
+  "Mod+T" = noRepeat { spawn = getExe pkgs.wleave; };
+  "Mod+B" = noRepeat {
+    spawn = [
+      (getExe' pkgs.procps "pkill")
+      "-SIGUSR1"
+      "waybar"
+    ];
+  };
 
-  "Mod+C".action.close-window = { };
-  "Mod+W".action.toggle-column-tabbed-display = { };
-  "Mod+V".action.switch-focus-between-floating-and-tiling = { };
-  "Mod+Shift+V".action.toggle-window-floating = { };
-  "Mod+R".action.switch-preset-column-width = { };
-  "Mod+E".action.switch-preset-window-height = { };
-  "Mod+Shift+E".action.reset-window-height = { };
-  "Mod+F".action.maximize-column = { };
-  "Mod+G".action.fullscreen-window = { };
-  "Mod+Comma".action.consume-window-into-column = { };
-  "Mod+Period".action.expel-window-from-column = { };
+  "Mod+Escape" = {
+    allow-inhibiting = false;
+    repeat = false;
+    action.toggle-keyboard-shortcuts-inhibit = { };
+  };
+  "Mod+C" = noRepeat { close-window = { }; };
+  "Mod+W" = noRepeat { toggle-column-tabbed-display = { }; };
+  "Mod+V" = noRepeat { switch-focus-between-floating-and-tiling = { }; };
+  "Mod+Shift+V" = noRepeat { toggle-window-floating = { }; };
+  "Mod+R" = noRepeat { switch-preset-column-width = { }; };
+  "Mod+E" = noRepeat { switch-preset-window-height = { }; };
+  "Mod+Shift+E" = noRepeat { reset-window-height = { }; };
+  "Mod+F" = noRepeat { maximize-column = { }; };
+  "Mod+G" = noRepeat { fullscreen-window = { }; };
 
   "Mod+Left".action.focus-column-or-monitor-left = { };
   "Mod+Down".action.focus-window-or-workspace-down = { };
@@ -48,10 +57,12 @@ in
   "Mod+Shift+K".action.move-window-up-or-to-workspace-up = { };
   "Mod+Shift+L".action.move-column-right-or-to-monitor-right = { };
 
-  "Mod+Ctrl+Left".action.consume-or-expel-window-left = { };
-  "Mod+Ctrl+Right".action.consume-or-expel-window-right = { };
-  "Mod+Ctrl+H".action.consume-or-expel-window-left = { };
-  "Mod+Ctrl+L".action.consume-or-expel-window-right = { };
+  "Mod+Ctrl+Left" = noRepeat { consume-or-expel-window-left = { }; };
+  "Mod+Ctrl+Right" = noRepeat { consume-or-expel-window-right = { }; };
+  "Mod+Ctrl+H" = noRepeat { consume-or-expel-window-left = { }; };
+  "Mod+Ctrl+L" = noRepeat { consume-or-expel-window-right = { }; };
+  "Mod+Comma" = noRepeat { consume-window-into-column = { }; };
+  "Mod+Period" = noRepeat { expel-window-from-column = { }; };
 
   "Mod+WheelScrollDown" = {
     cooldown-ms = 150;
@@ -89,42 +100,60 @@ in
   "Mod+7".action.focus-workspace = 7;
   "Mod+8".action.focus-workspace = 8;
   "Mod+9".action.focus-workspace = 9;
-  "Mod+Shift+1".action.move-column-to-workspace = [
-    { focus = false; }
-    1
-  ];
-  "Mod+Shift+2".action.move-column-to-workspace = [
-    { focus = false; }
-    2
-  ];
-  "Mod+Shift+3".action.move-column-to-workspace = [
-    { focus = false; }
-    3
-  ];
-  "Mod+Shift+4".action.move-column-to-workspace = [
-    { focus = false; }
-    4
-  ];
-  "Mod+Shift+5".action.move-column-to-workspace = [
-    { focus = false; }
-    5
-  ];
-  "Mod+Shift+6".action.move-column-to-workspace = [
-    { focus = false; }
-    6
-  ];
-  "Mod+Shift+7".action.move-column-to-workspace = [
-    { focus = false; }
-    7
-  ];
-  "Mod+Shift+8".action.move-column-to-workspace = [
-    { focus = false; }
-    8
-  ];
-  "Mod+Shift+9".action.move-column-to-workspace = [
-    { focus = false; }
-    9
-  ];
+  "Mod+Shift+1" = noRepeat {
+    move-column-to-workspace = [
+      { focus = false; }
+      1
+    ];
+  };
+  "Mod+Shift+2" = noRepeat {
+    move-column-to-workspace = [
+      { focus = false; }
+      2
+    ];
+  };
+  "Mod+Shift+3" = noRepeat {
+    move-column-to-workspace = [
+      { focus = false; }
+      3
+    ];
+  };
+  "Mod+Shift+4" = noRepeat {
+    move-column-to-workspace = [
+      { focus = false; }
+      4
+    ];
+  };
+  "Mod+Shift+5" = noRepeat {
+    move-column-to-workspace = [
+      { focus = false; }
+      5
+    ];
+  };
+  "Mod+Shift+6" = noRepeat {
+    move-column-to-workspace = [
+      { focus = false; }
+      6
+    ];
+  };
+  "Mod+Shift+7" = noRepeat {
+    move-column-to-workspace = [
+      { focus = false; }
+      7
+    ];
+  };
+  "Mod+Shift+8" = noRepeat {
+    move-column-to-workspace = [
+      { focus = false; }
+      8
+    ];
+  };
+  "Mod+Shift+9" = noRepeat {
+    move-column-to-workspace = [
+      { focus = false; }
+      9
+    ];
+  };
 
   "Mod+Alt+Left".action.set-window-width = "-10%";
   "Mod+Alt+Right".action.set-window-width = "+10%";
@@ -136,20 +165,18 @@ in
   "Mod+Alt+K".action.set-window-height = "-10%";
   "Mod+Alt+J".action.set-window-height = "+10%";
 
-  "Print".action.screenshot = { };
-  "Ctrl+Print".action.screenshot-screen = {
-    write-to-disk = false;
-  };
-  "Alt+Print".action.screenshot-window = {
-    write-to-disk = false;
-  };
-  "Mod+S".action.spawn = getExe recordScreen;
+  "Print" = noRepeat { screenshot = { }; };
+  "Ctrl+Print" = noRepeat { screenshot-screen = { }; };
+  "Alt+Print" = noRepeat { screenshot-window = { }; };
+  "Mod+S" = noRepeat { spawn = getExe recordScreen; };
 
   "XF86AudioRaiseVolume" = {
     allow-when-locked = true;
     action.spawn = [
       (getExe' pkgs.wireplumber "wpctl")
       "set-volume"
+      "--limit"
+      "1.0"
       "@DEFAULT_AUDIO_SINK@"
       "0.05+"
     ];
@@ -181,6 +208,7 @@ in
   };
   "XF86AudioMute" = {
     allow-when-locked = true;
+    repeat = false;
     action.spawn = [
       (getExe' pkgs.wireplumber "wpctl")
       "set-mute"
@@ -190,6 +218,7 @@ in
   };
   "XF86AudioMicMute" = {
     allow-when-locked = true;
+    repeat = false;
     action.spawn = [
       (getExe' pkgs.wireplumber "wpctl")
       "set-mute"
