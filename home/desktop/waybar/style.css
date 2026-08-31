@@ -9,8 +9,8 @@
 
 @keyframes blink_red {
   to {
-    background-color: rgb(242, 143, 173);
-    color: rgb(26, 24, 38);
+    background-color: #f38ba8;
+    color: #181825;
   }
 }
 
@@ -26,135 +26,133 @@ window#waybar {
   background-color: transparent;
 }
 
-window > box {
+window>box {
   margin-left: 5px;
   margin-right: 5px;
   margin-top: 5px;
-  background-color: #1e1e2a;
-  padding: 3px;
-  padding-left: 8px;
+  background-color: #181825;
+  padding: 5px;
   border: 2px none #33ccff;
 }
 
 tooltip {
-  background: rgb(48, 45, 65);
+  background: #181825;
 }
 
 tooltip label {
-  color: rgb(217, 224, 238);
+  color: #cdd6f4;
 }
 
 #custom-launcher {
   font-size: 20px;
-  padding-left: 8px;
-  padding-right: 6px;
-  color: #7ebae4;
+  padding-left: 10px;
+  padding-right: 10px;
+  color: #89dceb;
 }
 
-#mode,
-#clock,
 #custom-clock,
 #memory,
 #temperature,
 #cpu,
 #custom-media,
-#custom-wall,
 #backlight,
 #pulseaudio,
 #network,
 #battery,
-#custom-powermenu,
-#custom-cava-internal {
+#custom-powermenu {
   padding-left: 10px;
   padding-right: 10px;
 }
 
+#custom-launcher,
+#custom-clock,
+#temperature,
+#cava,
+#custom-media,
+#pulseaudio,
+#battery,
+#backlight,
+#memory,
+#cpu,
+#network,
+#custom-powermenu,
+#custom-wf-recorder,
+#tray {
+  background-color: #1e1e2e;
+  border-radius: 4px;
+  margin: 2px 3px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
 #battery {
-  color: rgb(181, 181, 224);
+  color: #f2cdcd;
 }
 
 #battery.warning {
-  color: orange;
+  color: #eba0ac;
 }
 
 #battery.critical {
-  color: red;
+  color: #f38ba8;
 }
 
 #memory {
-  color: rgb(181, 232, 224);
+  color: #94e2d5;
 }
 
 #cpu {
-  color: rgb(245, 194, 231);
+  color: #89b4fa;
 }
 
-#clock,
 #custom-clock {
-  color: rgb(217, 224, 238);
-}
-
-#custom-wall {
-  color: #33ccff;
+  color: #cdd6f4;
 }
 
 #custom-media {
-  color: rgb(217, 224, 238);
+  color: #a6adc8;
 }
 
 #temperature {
-  color: rgb(150, 205, 251);
+  color: #b4befe;
 }
 
 #backlight {
-  color: rgb(248, 189, 150);
+  color: #eed49f;
 }
 
 #pulseaudio {
-  color: rgb(245, 224, 220);
+  color: #cba6f7;
 }
 
 #network {
-  color: #abe9b3;
+  color: #a6da95;
 }
 
 #network.disconnected {
-  color: rgb(255, 255, 255);
+  color: #9399b2;
 }
 
 #custom-powermenu {
-  color: rgb(242, 143, 173);
-  padding-right: 10px;
+  color: #f38ba8;
 }
 
 #custom-wf-recorder {
-  color: rgb(255, 100, 100);
+  color: #f38ba8;
   font-size: 20px;
   padding-right: 10px;
   padding-left: 10px;
 }
 
 #tray {
-  padding-right: 8px;
+  color: #cdd6f4;
+  padding-right: 10px;
   padding-left: 10px;
-}
-
-#mpd.paused {
-  color: #414868;
-  font-style: italic;
-}
-
-#mpd.stopped {
-  background: transparent;
-}
-
-#mpd {
-  color: #c0caf5;
 }
 
 #cava {
   font-weight: normal;
   padding-right: 10px;
   padding-left: 10px;
-  color: #87cefa;
+  color: #89b4fa;
 }

@@ -30,8 +30,8 @@ in
         modules-left = [
           "custom/launcher"
           "temperature"
-          "custom/media"
           "cava"
+          "custom/media"
         ];
         modules-center = [ "custom/clock" ];
         modules-right = [
@@ -46,7 +46,7 @@ in
           "tray"
         ];
         "custom/launcher" = {
-          "format" = " ";
+          "format" = "";
           "on-click" =
             "exec ${lib.getExe pkgs.wallpaper_random} --dir ${lib.escapeShellArg wallpaperDirectory}";
           "tooltip" = false;
