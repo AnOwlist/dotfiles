@@ -27,6 +27,7 @@ in
     settings = [
       {
         position = "top";
+        spacing = 6;
         modules-left = [
           "custom/launcher"
           "temperature"
@@ -147,6 +148,7 @@ in
         "custom/wf-recorder" = {
           "exec" = "${test} -e \"$XDG_RUNTIME_DIR/wf-recorder.pid\" && ${printf} ''";
           "interval" = 1;
+          "tooltip" = false;
         };
         "tray" = {
           "icon-size" = 15;
