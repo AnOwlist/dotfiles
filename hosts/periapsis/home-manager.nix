@@ -22,6 +22,7 @@
     git.settings.user = {
       name = "AnOwlist";
       email = "anowlist.bf@gmail.com";
+      signingKey = "5AC8742EC2197F6E65D5EB948484F7AC71FCF252!";
     };
   };
 
