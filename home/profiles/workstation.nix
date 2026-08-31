@@ -59,7 +59,6 @@ in
     zsh.zsh-abbr = {
       abbreviations = {
         drg = "ripdrag";
-        lg = "lazygit";
         o = "xdg-open";
       };
       globalAbbreviations = {
