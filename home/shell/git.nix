@@ -10,6 +10,8 @@
       commit.gpgSign = true;
       tag.gpgSign = true;
 
+      diff.tool = "nvimdiff";
+
       init.defaultBranch = "main";
 
       pull = {
