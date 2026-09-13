@@ -85,6 +85,10 @@ in
   console.keyMap = "jp106";
 
   services = {
+    printing = {
+      enable = true;
+      drivers = [ pkgs.gutenprint ];
+    };
     xserver.xkb = {
       layout = "jp";
       model = "jp106";
