@@ -11,6 +11,7 @@
     ./niri
     ./obs-studio.nix
     ./onlyoffice.nix
+    ./swayidle.nix
     ./theme.nix
     ./wallpaper_random.nix
     ./waybar

@@ -123,8 +123,19 @@ let
       pkgs.file
       pkgs.hyprlock
       pkgs.imagemagick
+      pkgs.procps
+      pkgs.util-linux
     ];
     text = ''
+      lock_directory="''${XDG_RUNTIME_DIR:-''${XDG_CACHE_HOME:-$HOME/.cache}}/hyprlock"
+      mkdir -p "$lock_directory"
+      lock_file="$lock_directory/hyprlock-$(id -u).lock"
+      exec 9>"$lock_file"
+      flock -n 9 || exit 0
+      if pgrep -u "$(id -u)" -x hyprlock >/dev/null; then
+        exit 0
+      fi
+
       ${iconSync}
 
       exec hyprlock "$@"
