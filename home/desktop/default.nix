@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 {
   imports = [
+    ./clipse.nix
     ./dunst.nix
     ./flameshot.nix
     ./fuzzel.nix

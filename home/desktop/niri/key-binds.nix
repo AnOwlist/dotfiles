@@ -15,6 +15,15 @@ in
 
   "Mod+Return" = noRepeat { spawn = getExe pkgs.kitty; };
   "Mod+D" = noRepeat { spawn = getExe pkgs.fuzzel; };
+  "Mod+semicolon" = noRepeat {
+    spawn = [
+      (getExe pkgs.kitty)
+      "--class"
+      "clipse"
+      "-e"
+      (getExe pkgs.clipse)
+    ];
+  };
   "Mod+T" = noRepeat { spawn = getExe pkgs.wleave; };
   "Mod+B" = noRepeat {
     spawn = [
