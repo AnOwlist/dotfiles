@@ -52,6 +52,7 @@ in
       "audio"
       "video"
       "input"
+      "uinput"
     ];
     inherit hashedPassword;
   };
