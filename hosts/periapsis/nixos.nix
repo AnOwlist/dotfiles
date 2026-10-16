@@ -8,6 +8,8 @@ let
   username = "anowlist";
   hostname = "periapsis";
   hashedPassword = "$6$CA/1ptx4zRUe....$.HTD.apejf/k6OPuCxOafZMehUMcuVMuNeFpR7WdH5prfXnLYX7gNPkZZkLhroPOSc52Njq/55T2.3eRPKL8J0";
+  # %% is udev's escape for a literal % (not Nix syntax).
+  backlightClampRule = ''SUBSYSTEM=="backlight", KERNEL=="amdgpu_bl1", ENV{ID_BACKLIGHT_CLAMP}="10%%"'';
 in
 {
   imports = [
@@ -31,7 +33,10 @@ in
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
     extraModulePackages = [ config.boot.kernelPackages.v4l2loopback ];
-    initrd.kernelModules = [ "joydev" ];
+    initrd = {
+      kernelModules = [ "joydev" ];
+      services.udev.rules = backlightClampRule;
+    };
     tmp.useTmpfs = true;
     loader = {
       efi.canTouchEfiVariables = true;
@@ -104,9 +109,7 @@ in
       HandleLidSwitch = "lock";
       HandleLidSwitchDocked = "lock";
     };
-    udev.extraRules = ''
-      ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="amdgpu_bl1", ENV{ID_BACKLIGHT_CLAMP}="10%%"
-    '';
+    udev.extraRules = backlightClampRule;
   };
 
   hardware.graphics = {
