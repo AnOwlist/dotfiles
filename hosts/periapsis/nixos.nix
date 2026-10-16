@@ -100,7 +100,10 @@ in
       useRoutingFeatures = "client";
     };
     thermald.enable = true;
-    logind.settings.Login.HandleLidSwitch = "ignore";
+    logind.settings.Login = {
+      HandleLidSwitch = "lock";
+      HandleLidSwitchDocked = "lock";
+    };
     udev.extraRules = ''
       ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="amdgpu_bl1", ENV{ID_BACKLIGHT_CLAMP}="10%%"
     '';
