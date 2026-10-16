@@ -10,11 +10,6 @@ let
   printf = lib.getExe' coreutils "printf";
   test = lib.getExe' coreutils "test";
   wallpaperDirectory = "${config.xdg.userDirs.pictures}/wallpapers";
-  media = pkgs.writeShellApplication {
-    name = "waybar-media";
-    runtimeInputs = [ pkgs.playerctl ];
-    text = builtins.readFile ./media.sh;
-  };
 in
 {
   programs.waybar = {
@@ -32,7 +27,7 @@ in
           "custom/launcher"
           "temperature"
           "cava"
-          "custom/media"
+          "mpris"
         ];
         modules-center = [ "custom/clock" ];
         modules-right = [
@@ -125,12 +120,15 @@ in
           "interval" = 1;
           "format" = "󰻠 {usage}%";
         };
-        "custom/media" = {
+        "mpris" = {
+          # No interval: the module refreshes on D-Bus events.
+          "format" = "{dynamic}";
+          "dynamic-order" = [
+            "title"
+            "artist"
+          ];
           "max-length" = 100;
-          "exec" = "${lib.getExe media} status";
-          "on-click" = "${lib.getExe media} toggle";
-          "tooltip" = false;
-          "interval" = 1;
+          "tooltip" = true;
         };
         "network" = {
           "format-disconnected" = "󰯡";

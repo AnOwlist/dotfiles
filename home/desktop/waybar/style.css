@@ -56,7 +56,7 @@ tooltip label {
   color: #cdd6f4;
 }
 
-#custom-media {
+#mpris {
   color: #a6adc8;
 }
 
@@ -119,7 +119,7 @@ tooltip label {
 }
 
 #custom-launcher,
-#custom-media,
+#mpris,
 #pulseaudio,
 #custom-powermenu {
   transition-property: background-color;
@@ -127,7 +127,7 @@ tooltip label {
 }
 
 #custom-launcher:hover,
-#custom-media:hover,
+#mpris:hover,
 #pulseaudio:hover,
 #custom-powermenu:hover {
   background-color: #313244;
