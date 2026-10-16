@@ -2,6 +2,21 @@
   "nodes": {
     "crane": {
       "locked": {
+        "lastModified": 1790899423,
+        "narHash": "sha256-THGtz65UGJU+sonZidRboyCMk+9DclpMF7pwL4uDV4M=",
+        "owner": "ipetkov",
+        "repo": "crane",
+        "rev": "47b6b27ed9a3a9181415e4367d0c30ab2a0e0250",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ipetkov",
+        "repo": "crane",
+        "type": "github"
+      }
+    },
+    "crane_2": {
+      "locked": {
         "lastModified": 1785782307,
         "narHash": "sha256-MPaRdVkf6zZP5fCPxYCi8Dr4pZzgmXzg8T9nVEbp3Mw=",
         "owner": "ipetkov",
@@ -124,6 +139,44 @@
       "original": {
         "owner": "nix-community",
         "repo": "home-manager",
+        "type": "github"
+      }
+    },
+    "kanaemi": {
+      "inputs": {
+        "crane": "crane",
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": "rust-overlay"
+      },
+      "locked": {
+        "lastModified": 1792084179,
+        "narHash": "sha256-x1QQc3pjEKNJ4cdN3J5W+ZGEbtONhJllRVcEe9JgXeI=",
+        "owner": "kanaemi-app",
+        "repo": "kanaemi",
+        "rev": "ce79f6687253c6294867e97ff6c15ff1a3e93e6f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kanaemi-app",
+        "repo": "kanaemi",
+        "type": "github"
+      }
+    },
+    "kanaemi-dict": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1792055288,
+        "narHash": "sha256-OoMq9UZPUiy2Go2uWdn54AO9QnFIzqUvu32eGxcjb6o=",
+        "owner": "kanaemi-app",
+        "repo": "kanaemi-dict",
+        "rev": "ade51509a74e0cb36f967942c67f82a997fc483a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "kanaemi-app",
+        "repo": "kanaemi-dict",
         "type": "github"
       }
     },
@@ -364,6 +417,8 @@
         "flake-parts": "flake-parts",
         "git-hooks": "git-hooks",
         "home-manager": "home-manager",
+        "kanaemi": "kanaemi",
+        "kanaemi-dict": "kanaemi-dict",
         "niri-flake": "niri-flake",
         "nix-index-database": "nix-index-database",
         "nixpkgs": "nixpkgs",
@@ -372,6 +427,28 @@
         "treefmt-nix": "treefmt-nix_2",
         "xremap-flake": "xremap-flake",
         "zen-browser": "zen-browser"
+      }
+    },
+    "rust-overlay": {
+      "inputs": {
+        "nixpkgs": [
+          "kanaemi",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1790928989,
+        "narHash": "sha256-5r3MN/Rx7N9tLapCBmUq6/zCc3C9J7gNif1HybD1fJQ=",
+        "ref": "refs/heads/master",
+        "rev": "368fee9beaab04ca6fe7af28db63caa9badb22fa",
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/oxalica/rust-overlay"
+      },
+      "original": {
+        "shallow": true,
+        "type": "git",
+        "url": "https://github.com/oxalica/rust-overlay"
       }
     },
     "treefmt-nix": {
@@ -417,7 +494,7 @@
     },
     "xremap-flake": {
       "inputs": {
-        "crane": "crane",
+        "crane": "crane_2",
         "flake-parts": [
           "flake-parts"
         ],

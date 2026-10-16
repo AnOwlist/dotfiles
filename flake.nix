@@ -40,6 +40,14 @@
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    kanaemi = {
+      url = "github:kanaemi-app/kanaemi";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    kanaemi-dict = {
+      url = "github:kanaemi-app/kanaemi-dict";
+      flake = false;
+    };
     niri-flake = {
       url = "github:sodiboo/niri-flake";
       inputs = {
@@ -130,10 +138,7 @@
             settings = {
               hooks = {
                 ripsecrets.enable = true;
-                typos = {
-                  enable = true;
-                  settings.exclude = [ "**/rom-kana/default.json" ];
-                };
+                typos.enable = true;
                 treefmt.enable = true;
               };
             };
