@@ -167,11 +167,11 @@
     "kanaemi-dict": {
       "flake": false,
       "locked": {
-        "lastModified": 1792055288,
-        "narHash": "sha256-OoMq9UZPUiy2Go2uWdn54AO9QnFIzqUvu32eGxcjb6o=",
+        "lastModified": 1794595895,
+        "narHash": "sha256-iB30sa4yuixmBDIt6YiRrRA+eiEoCleRRSOIL8U9ra4=",
         "owner": "kanaemi-app",
         "repo": "kanaemi-dict",
-        "rev": "ade51509a74e0cb36f967942c67f82a997fc483a",
+        "rev": "f7e69111e32355e907c7cbfe0a8529c0da02a4e7",
         "type": "github"
       },
       "original": {

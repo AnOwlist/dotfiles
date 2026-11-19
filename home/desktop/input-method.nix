@@ -48,8 +48,39 @@
       force = true;
     };
     "kanaemi/config.toml".text = ''
+      # List the base dictionary first. A list replaces the default order, so
+      # keep the user custom dictionary and every built-in here; new built-ins
+      # have to be added by hand.
+      dictionaries = [
+        "custom",
+        "kanaemi-base.tsv",
+        "kanaemi-2026.tsv",
+        "kanaemi-games.tsv",
+        "kanaemi-it.tsv",
+        "kanaemi-place.tsv",
+        "kanaemi-science.tsv",
+        "kanaemi-symbol.tsv",
+        "builtin:date",
+        "builtin:time",
+        "builtin:year",
+        "builtin:number",
+        "builtin:random",
+      ]
+
       [romaji]
       tables = ["full-width", "hepburn", "kunrei", "input-aids", "z-symbols", "azik", "azik-custom.tsv", "half-width-digits.tsv"]
+
+      # Ctrl+K commits katakana; F7 keeps doing the same from the defaults.
+      [keys.reading]
+      "ctrl+k" = "@commit-katakana"
+
+      [keys.candidates]
+      "ctrl+k" = "@commit-katakana"
+
+      # Leave Ctrl+A to applications when nothing is being composed, so GUI
+      # apps can select all instead of receiving Home from the default remap.
+      [keys.application.linux]
+      "ctrl+a" = "@none"
     '';
     "kanaemi/romaji/azik-custom.tsv".text = ''
       l	っ
@@ -67,10 +98,13 @@
       9	9
     '';
     "kanaemi/dictionaries/kanaemi-base.tsv".source = "${inputs.kanaemi-dict}/dictionaries/base.tsv";
-    "kanaemi/dictionaries/kanaemi-base.tsv.sources.txt".source =
-      "${inputs.kanaemi-dict}/dictionaries/base.tsv.sources.txt";
-    "kanaemi/dictionaries/kanaemi-base.model.sources.txt".source =
-      "${inputs.kanaemi-dict}/dictionaries/base.model.sources.txt";
+    "kanaemi/dictionaries/kanaemi-2026.tsv".source = "${inputs.kanaemi-dict}/dictionaries/2026.tsv";
+    "kanaemi/dictionaries/kanaemi-games.tsv".source = "${inputs.kanaemi-dict}/dictionaries/games.tsv";
+    "kanaemi/dictionaries/kanaemi-it.tsv".source = "${inputs.kanaemi-dict}/dictionaries/it.tsv";
+    "kanaemi/dictionaries/kanaemi-place.tsv".source = "${inputs.kanaemi-dict}/dictionaries/place.tsv";
+    "kanaemi/dictionaries/kanaemi-science.tsv".source =
+      "${inputs.kanaemi-dict}/dictionaries/science.tsv";
+    "kanaemi/dictionaries/kanaemi-symbol.tsv".source = "${inputs.kanaemi-dict}/dictionaries/symbol.tsv";
     "kanaemi/dictionaries/LICENSE".source = "${inputs.kanaemi-dict}/dictionaries/LICENSE";
     "kanaemi/dictionaries/notices" = {
       source = "${inputs.kanaemi-dict}/notices";
