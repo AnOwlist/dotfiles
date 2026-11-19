@@ -20,6 +20,8 @@
       };
       rebase.autostash = true;
       merge.conflictstyle = "diff3";
+
+      push.default = "current";
     };
   };
 }
