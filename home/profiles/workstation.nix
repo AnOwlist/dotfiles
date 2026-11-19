@@ -27,9 +27,19 @@ in
 
     fzf.enableZshIntegration = true;
 
+    # Credentials come from the gh keyring. The empty entry clears any helper
+    # inherited from system or user-level git config (for example the legacy
+    # `credential.helper = store`), so no token is read from or written to
+    # plain-text ~/.git-credentials.
     git.settings.credential = {
-      "https://github.com".helper = "${lib.getExe pkgs.gh} auth git-credential";
-      "https://gist.github.com".helper = "${lib.getExe pkgs.gh} auth git-credential";
+      "https://github.com".helper = [
+        ""
+        "${lib.getExe pkgs.gh} auth git-credential"
+      ];
+      "https://gist.github.com".helper = [
+        ""
+        "${lib.getExe pkgs.gh} auth git-credential"
+      ];
     };
 
     kitty = {
