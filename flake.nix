@@ -49,15 +49,8 @@
       flake = false;
     };
     niri-flake = {
-      url = "github:sodiboo/niri-flake";
-      inputs = {
-        niri-stable.follows = "";
-        niri-unstable.follows = "";
-        nixpkgs-stable.follows = "";
-        nixpkgs.follows = "nixpkgs";
-        xwayland-satellite-stable.follows = "";
-        xwayland-satellite-unstable.follows = "";
-      };
+      url = "github:epireyn/niri-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     xremap-flake = {
       url = "github:xremap/nix-flake";

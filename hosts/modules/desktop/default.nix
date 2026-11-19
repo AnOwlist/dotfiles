@@ -1,7 +1,12 @@
-{ pkgs, ... }:
+{
+  inputs,
+  pkgs,
+  ...
+}:
 {
   imports = [
     ./fonts.nix
+    inputs.niri-flake.nixosModules.niri
   ];
 
   security.pam.services.hyprlock = { };
@@ -34,7 +39,13 @@
     uinput.enable = true;
   };
 
-  programs.dconf.enable = true;
+  programs = {
+    dconf.enable = true;
+    niri = {
+      enable = true;
+      package = pkgs.niri-stable;
+    };
+  };
 
   environment.gnome.excludePackages = with pkgs; [
     baobab # disk usage analyzer

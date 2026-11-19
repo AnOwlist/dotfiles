@@ -72,6 +72,7 @@ in
     config.allowUnfree = true;
     overlays = [
       inputs.nur-yadokani.overlays.nur
+      inputs.niri-flake.overlays.niri
     ];
   };
   nix.settings = {
@@ -119,7 +120,6 @@ in
   };
 
   programs = {
-    niri.enable = true;
     steam = {
       enable = true;
       remotePlay.openFirewall = true;

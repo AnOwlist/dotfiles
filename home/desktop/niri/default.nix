@@ -1,6 +1,5 @@
 {
   config,
-  inputs,
   lib,
   pkgs,
   ...
@@ -19,18 +18,17 @@ let
   };
 in
 {
-  imports = [ inputs.niri-flake.homeModules.niri ];
-
   home.packages = with pkgs; [
     recordScreen
-    xwayland-satellite
   ];
 
   home.file."videos/wf-recorder/.keep".text = "";
 
-  programs.niri.package = pkgs.niri;
-
   programs.niri.settings = {
+    xwayland-satellite = {
+      enable = true;
+      path = lib.getExe pkgs.xwayland-satellite-stable;
+    };
     screenshot-path = "${config.xdg.userDirs.pictures}/screenshots/%FT%H-%M-%S.png";
     binds = import ./key-binds.nix { inherit lib pkgs recordScreen; };
     input = {
