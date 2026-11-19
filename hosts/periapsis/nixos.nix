@@ -82,10 +82,12 @@ in
     extra-substituters = [
       "https://yadokani389.cachix.org"
       "https://oxalica.cachix.org"
+      "https://kanaemi.cachix.org"
     ];
     extra-trusted-public-keys = [
       "yadokani389.cachix.org-1:xHw9jijQFNDKlNprHbQpXX6cVOUO4m/n2lBfx6Bq4jg="
       "oxalica.cachix.org-1:h0iRBw6tQD8+51ZvnNEBPbwLR58UD7klauDBWzBdugQ="
+      "kanaemi.cachix.org-1:TIkDbHQ6HmPzHQBXdOVhLSTff2LiCWJOJhKdIUWC238="
     ];
   };
 
